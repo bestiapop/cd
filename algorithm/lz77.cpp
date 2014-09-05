@@ -22,19 +22,25 @@ void lz77::code(string name_in, string name_out, int ws) {
     BitOutStream bos(name_out);
     BitInStream bis(name_in);
   
+    char c1;///= bis.getChar();
+    while((c1=bis.getChar())>-1) cout<<c1<<"XX"<<endl;
+    bis.close();
+    bis.open(name_in);
+    
     Method *m = new byteMethod(bis,bos);    
     FiniteBuffer *buffer= new FiniteBuffer(ws);
     
     int pos_current=0;   
     char ch=m->readChar();
-       
+    buffer->push(ch); 
+
+    
     while(ch>-1){
-    char to_write=ch;
+    //char to_write=ch;
     int offset=0;
     int length=0;   
 
-    buffer->push(ch);
-
+    //cout<<"currentpos:"<<pos_current<<"   "<<buffer->at(pos_current)<<endl;
     for(int i=0; i<pos_current;i++){
         int i_aux=i;
         int count=0;
@@ -47,6 +53,7 @@ void lz77::code(string name_in, string name_out, int ws) {
             count++;
             if(pos_aux>buffer->length()-1){
                 c=m->readChar();
+                ch=c;
                 if(c>-1){
                     buffer->push(c);                    
                 }
@@ -61,21 +68,46 @@ void lz77::code(string name_in, string name_out, int ws) {
     }//for
         
     if(length>3){
-        //cout<<"("<<length<<","<<offset<<")"<<endl;
-        m->writeBit(true);
-        m->writeChar((unsigned char)length);
-        m->writeChar((unsigned char)offset);
+        cout<<"("<<length<<","<<offset<<")"<<endl;
+        //m->writeBit(true);
+        //m->writeChar((unsigned char)length);
+        //m->writeChar((unsigned char)offset);
     }
         //cout<<to_write<<endl;
-        m->writeChar((unsigned char)to_write);
+        cout<<"["<<buffer->at(pos_current)<<"]"<<endl;
+        //m->writeChar((unsigned char)to_write);
+        
+        
+        //if(buffer->length()-1>pos_current ||length<4){
+        //    cout<<buffer->length()<<" "<<pos_current<<endl;
+        //   pos_current++; //aumento 1
+        //    ch=buffer->at(pos_current);
+        //}
+        
         
         //buffer->wrap();
         if(length>3){
-            ch=m->readChar();
+            //cout<<"lenopantes"<<ch<<endl;
+            if(!(buffer->length()-1>pos_current)){
+                ch=m->readChar();
+                buffer->push(ch);
+            }
+            //ch=m->readChar();           
+            //buffer->push(ch); //new
             pos_current+=length;
-        }else{
-            ch=m->readChar();
+            //cout<<"lenop"<<ch<<endl;
+            //ch= buffer->at(pos_current);
+        }
+        else{
+            //ch=m->readChar();
+            //buffer->push(ch);
+            if(!(buffer->length()-1>pos_current)){
+                ch=m->readChar();
+                buffer->push(ch);
+            }
             pos_current++;
+            ch=buffer->at(pos_current);
+            //cout<<"else:"<<ch<<endl;
         }
         
 
@@ -86,18 +118,20 @@ void lz77::code(string name_in, string name_out, int ws) {
 }
 
 
-/*
+
 
 void lz77::code2(string name_in, string name_out, int ws) {
     
     BitOutStream bos(name_out);
     BitInStream bis(name_in);
+
     Method *m = new byteMethod(bis,bos);
     //vector<char> *v= new vector<char>();
     
     FiniteBuffer *buffer= new FiniteBuffer(ws);
     //buffer->push('c');
-    string to_code="aaaaaakkkkkkkkkkkkkk\0";
+    //string to_code="aaaaaakkkkkkkkkkkkkk\0";
+    string to_code="aaakkk\0";
     
     
     //windows size
@@ -171,7 +205,7 @@ void lz77::code2(string name_in, string name_out, int ws) {
     bis.close();
     }
 
-
+/*
 
 void lz77::writeByte(BitOutStream &bos, unsigned char c) {
         bos.writeByte(c);

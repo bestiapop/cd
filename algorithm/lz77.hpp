@@ -21,7 +21,7 @@ public:
     lz77();
     lz77(const lz77& orig);
     void code(string name_in, string name_out, int ws);
-    //void code2(string name_in, string name_out, int ws);
+    void code2(string name_in, string name_out, int ws);
 
     //void writeHuffman(BitOutStream &out, vector<string*> &code, unsigned char c);
     //void writeByte(BitOutStream &bos, unsigned char c);
