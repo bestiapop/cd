@@ -9,6 +9,7 @@
 
 
 BitOutStream::BitOutStream() {
+    //out =&cout;
 }
 
 BitOutStream::BitOutStream(string fileout){
@@ -22,18 +23,23 @@ BitOutStream::BitOutStream(const BitOutStream& orig) {
 }
 
 BitOutStream::~BitOutStream() {
-    out.flush();
+    //out.flush();
+    clearBuffer();
     out.close();
 }
 
 void BitOutStream::close(){
     //out.flush();
+    //if(ofstream * o= dynamic_cast<ofstream *>(out)){
+    //    o->close();
+    //}
+    clearBuffer();
     out.close();
 }
 
 void BitOutStream::clearBuffer(){
     if(N==0)return;
-    if(N>0) buffer << N;//(8-N);
+    if(N>0)  buffer= buffer << (8-N);//N;//(8-N);
     //imprimo
     //out<<buffer;
     out.put(buffer);
@@ -67,7 +73,7 @@ unsigned char BitOutStream::getBuffer(){
 
 
 void BitOutStream::open(string fileout) {
-    out.open(fileout.c_str(),ios::binary);
+   out.open(fileout.c_str(),ios::binary);
 }
 
 void BitOutStream::writeByte(unsigned char byte){

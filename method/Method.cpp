@@ -22,3 +22,11 @@ void Method::writeBit(bool bit) {
 void Method::close() {
     out.close();
 }
+
+void Method:: writeChar(unsigned char c){
+    out.writeByte(c);
+}
+
+char Method::readChar(){
+    return in.getChar();
+}

@@ -35,10 +35,12 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/algorithm/Algorithm.o \
 	${OBJECTDIR}/algorithm/Huffman.o \
 	${OBJECTDIR}/algorithm/lz77.o \
 	${OBJECTDIR}/controllers/BitInStream.o \
 	${OBJECTDIR}/controllers/BitOutStream.o \
+	${OBJECTDIR}/controllers/algorithmController.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/method/Method.o \
 	${OBJECTDIR}/method/byteMethod.o \
@@ -71,6 +73,11 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/huffmancode: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/huffmancode ${OBJECTFILES} ${LDLIBSOPTIONS}
 
+${OBJECTDIR}/algorithm/Algorithm.o: algorithm/Algorithm.cpp 
+	${MKDIR} -p ${OBJECTDIR}/algorithm
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/algorithm/Algorithm.o algorithm/Algorithm.cpp
+
 ${OBJECTDIR}/algorithm/Huffman.o: algorithm/Huffman.cpp 
 	${MKDIR} -p ${OBJECTDIR}/algorithm
 	${RM} "$@.d"
@@ -90,6 +97,11 @@ ${OBJECTDIR}/controllers/BitOutStream.o: controllers/BitOutStream.cpp
 	${MKDIR} -p ${OBJECTDIR}/controllers
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/controllers/BitOutStream.o controllers/BitOutStream.cpp
+
+${OBJECTDIR}/controllers/algorithmController.o: controllers/algorithmController.cpp 
+	${MKDIR} -p ${OBJECTDIR}/controllers
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/controllers/algorithmController.o controllers/algorithmController.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}

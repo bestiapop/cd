@@ -8,34 +8,18 @@
 #ifndef HUFFMAN_HPP
 #define	HUFFMAN_HPP
 
-#include <string>
-#include <vector>
-#include <iostream>
-#include <algorithm>
-
-#include "../structures/Nodo.hpp"
-#include"../controllers/BitInStream.hpp"
-#include "../controllers/BitOutStream.hpp"
+#include "Algorithm.hpp"
 
 
-class Huffman {
+class Huffman: public Algorithm{
 public:
     Huffman();
     Huffman(const Huffman& orig);
     
-    //functions
-    int* empiricProbability(BitInStream &fileread, long int &length);
-    Nodo* generateTree(int* frec);
-    void generateCode(Nodo *&n, vector<string*> &code, string ac);
-    void writeTree(Nodo* &root, BitOutStream &fileout);
-    Nodo* readTree(BitInStream &filein);
-
-    void code(string,string);
-    void decode(string,string);
+    virtual void encode(BitInStream &, BitOutStream &);
+    virtual void decode(BitInStream &, BitOutStream &);
     
     virtual ~Huffman();
-private:
-    static const int K=256;
 };
 
 #endif	/* HUFFMAN_HPP */

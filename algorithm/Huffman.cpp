@@ -22,106 +22,18 @@ Huffman::~Huffman() {
 }
 
 
-int* Huffman::empiricProbability(BitInStream &fileread, long int &length){
-    int *prob= new int[K];
-    char c;
-    while((c=fileread.getChar())>-1){
-        prob[c]++;
-        length++;
-        //cout<<(int)c<< c <<endl;
-    }
-    fileread.close();
-
-    return prob;
-}
-
-bool comparator(Nodo* a, Nodo* b){
-    return a->getFrec() > b->getFrec();
-}
-
-Nodo* Huffman::generateTree(int* frec){
-    vector<Nodo*> vec= vector<Nodo*>();
-    for(int i=0; i<K; i++){
-        if(frec[i]>0){
-            Nodo* n= new Nodo((char)i,frec[i]);
-            vec.push_back(n);
-        }
-    }
-    sort(vec.begin(),vec.end(),comparator);
-
-    //cout<<"cant frec"<<endl;
-    //for(int i=0; i<vec.size(); i++){
-    //    cout<< ((Nodo *)vec[i])->getFrec()<<
-    //            (char)((Nodo *)vec[i])->getChar()<<endl;
-    //}
+void Huffman::encode(BitInStream &fileread, BitOutStream &filewrite){
     
-    while(vec.size()>1){
-        int frec=vec[0]->getFrec()+vec[1]->getFrec();
-        Nodo *n = new Nodo('*',frec,vec[0],vec[1]);
-        vec.erase(vec.begin());
-        vec.erase(vec.begin());
-        vec.push_back(n);
-        sort(vec.begin(),vec.end(),comparator);
-    }
-    return vec[0];
+    //string in_name = args[0];
+    //string out_name = args[1];
+    //BitInStream fileread(in_name);
+    //BitOutStream filewrite(out_name);
+    //BitInStream fileread;
+    //BitOutStream filewrite;
     
-}
-
-
-void Huffman::generateCode(Nodo *&n, vector<string*> &code, string ac){
-    if(n!=NULL){
-        if(n->isLeaf()){
-            code[n->getChar()]=new string(ac);
-            //cout<<n->getChar()<<endl;
-            //cout<<ac<<endl;
-        }else{  
-            generateCode(n->getLeft(),code,ac+"0");//ac+"0");
-            generateCode(n->getRight(),code,ac+"1");//+"1");
-        }
-    }
-
-}
-
-void Huffman::writeTree(Nodo* &root, BitOutStream &fileout){
-    if(root->isLeaf()){ //hoja
-        fileout.writeBit(true);//fileout<<true;
-        //cout<<1;
-        //fileout<<(char)root->getChar();
-        char c=root->getChar();
-        //cout<<c<<"(";
-        fileout.writeByte(c);//fileout.put(root->getChar());
-        //cout<<")";
-    }else{
-        fileout.writeBit(false);//fileout<<false;
-        //cout<<0;
-        writeTree(root->getLeft(),fileout);
-        writeTree(root->getRight(),fileout);
-    }
-}
-
-
-Nodo* Huffman::readTree(BitInStream &filein){
-    bool bit;
-    bit=filein.getBit();//filein>>bit;
-    //cout<<bit<<endl;
-    if(bit){
-        char c;
-        //filein>>c;
-        c=filein.getChar();
-        //cout<<c<<endl;
-        return new Nodo(c,-1);
-    }else{
-        Nodo* izq= readTree(filein);
-        Nodo* der= readTree(filein);
-        return new Nodo('\0',-1,izq,der);
-    }
-
-}
-
-
-void Huffman::code(string in_name, string out_name){
-    BitInStream fileread(in_name);
-    BitOutStream filewrite(out_name);
+    string in_name="z";
+            
+            
     long int length=0;
     
     vector<string*> codes= vector<string*>(256);
@@ -135,15 +47,10 @@ void Huffman::code(string in_name, string out_name){
     
     cout<<"Generating tree..."<<endl;
     Nodo * root= generateTree(prob);
-    //root->printNodo("");
-    
-    
+        
     cout<<"Generating code..."<<endl;
     generateCode(root,codes,"");
-    
-    //for(int i=0; i<256; i++)
-    //    if(codes[i]!=NULL) cout<<dec<<i<<"__"<<*codes[i]<<endl;
-    
+      
     //descriptor para decoder
     //  LONG INT    : how many symbols contains the original file;  
     //  DECODER     : describes the tree parser, this is used for decode de file; 32 bits
@@ -151,6 +58,7 @@ void Huffman::code(string in_name, string out_name){
     
     cout<<"Writing LONG INT"<<endl;
     filewrite.writeInt(length);
+    cout<<length<<endl;
     
     cout<<"Writing tree..."<<endl;
     writeTree(root,filewrite);
@@ -161,20 +69,15 @@ void Huffman::code(string in_name, string out_name){
     char c;
     while((c=fileread.getChar())>-1){
         string * toParse= codes[c];
-        //cout<<(int)c<< "__"<<*toParse<<endl;
-
+        cout<<c;
         for(int i=0;i<toParse->length();i++){
             if(toParse->at(i)=='0'){
-                //cout<<toParse->at(i)<<endl;
-                filewrite.writeBit(false);//filewrite<<false;
-                //cout<<0;
+                filewrite.writeBit(false);
                 }
             else{
-                filewrite.writeBit(true);//filewrite<<true;
-                //cout<<1;
+                filewrite.writeBit(true);
             }
-        }
-        
+        }   
     }
     
     cout<<endl<<"Finish encoding..."<<endl;
@@ -184,15 +87,22 @@ void Huffman::code(string in_name, string out_name){
     //delete memory
     delete [] prob;
     codes.erase(codes.begin(),codes.end());
-    //delete tree
-    
+    //delete tree  
 }
 
-void Huffman::decode(string in_name, string out_name){
-    BitInStream filein(in_name);
-    BitOutStream fileout(out_name);
-    long int length= filein.getInt();
+void Huffman::decode(BitInStream &filein, BitOutStream &fileout){
+    //string in_name = args[0];
+    //string out_name = args[1];
     
+    //BitInStream filein(in_name);
+    //BitOutStream fileout(out_name);
+    //BitInStream filein;
+    //BitOutStream fileout;
+    
+    cout<<"start decoding"<<endl;
+    
+    long int length= filein.getInt();
+    cout<<length<<endl;
     Nodo* root= readTree(filein);
     //root->printNodo("*");
     

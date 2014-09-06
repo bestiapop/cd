@@ -14,8 +14,8 @@
 class Method {
 public:
     Method(BitInStream &in, BitOutStream &out);
-    virtual void writeChar(unsigned char)=0;
-    virtual char readChar()=0;
+    void writeChar(unsigned char);
+    char readChar();
     void close();
     void writeBit(bool bit);
     bool readBit();

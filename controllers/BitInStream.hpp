@@ -31,7 +31,7 @@ public:
     virtual ~BitInStream();
     
 private:
-    ifstream in;
+    istream *in;
     char buffer;
     int N;
 

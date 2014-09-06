@@ -8,16 +8,20 @@
 #include "BitInStream.hpp"
 
 BitInStream::BitInStream() {
+    //cin>>in;
+    cout<<"instancio"<<endl;
+    in= &cin;
+    fillBuffer();
 }
 
 void BitInStream::fillBuffer(){
     //in>>buffer;
-    buffer=in.get();
+    buffer=in->get();
     N=8;//0
 }
 
 BitInStream::BitInStream(string filein) {
-    in.open(filein.c_str(),ios::binary);
+    in= new ifstream(filein.c_str(),ios::binary);//in.open(filein.c_str(),ios::binary);
     fillBuffer();
 }
 
@@ -25,7 +29,8 @@ BitInStream::BitInStream(const BitInStream& orig) {
 }
 
 BitInStream::~BitInStream() {
-    in.close();
+    //in.close();
+  
 }
 
 
@@ -82,11 +87,15 @@ char BitInStream::getChar(){
 
 
 void BitInStream::close(){
-    in.close();
+    if(ofstream * of = dynamic_cast<ofstream *>(in)){
+        of->close();
+    }
+    //((ifstream*)in)->close(); 
 }
 
 void BitInStream::open(string filein){
-    in.open(filein.c_str(),ios::binary);
+    
+    in= new ifstream(filein.c_str(), ios::binary);//.open(filein.c_str(),ios::binary);
     fillBuffer();
 }
 
