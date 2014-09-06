@@ -43,7 +43,7 @@ void algorithmController::encode() {
     _algorithm->encode(*_bis,*_bos);
 }
 
-void algorithmController::encode_decode(bool encode, string filein, string fileout){
+void algorithmController::encode_decode(bool encode){
     if(encode)
         _algorithm->encode(*_bis,*_bos);
     else

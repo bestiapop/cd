@@ -22,7 +22,7 @@ public:
     
     void setAlgorithm(int, string ,string);
     void setAlgorithm(Algorithm* &a);
-    void encode_decode(bool encode,string,string);
+    void encode_decode(bool encode);
     void encode();
     void decode();
     
