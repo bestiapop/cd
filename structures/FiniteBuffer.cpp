@@ -19,20 +19,17 @@ FiniteBuffer::~FiniteBuffer() {
 }
 
 FiniteBuffer::FiniteBuffer(int size, BitInStream * &bis){
-    //buffer= vector<char>();
     buffer = new vector<char>();
     bufferwin= new vector<char>();
     this->size_w=size;
-    //this->current_size=0;
     int aux=ABUF;
     char c;
-    while(aux>0 && (c=bis->getChar())>-1){
+    
+    while(aux>0 && (c=bis->getByte())>-1){
         buffer->push_back(c);
-        //cout<<c;
         aux--;
     }
-    //cout<<"en buffer: "<<buffer->size()<<endl;
-    //cout<<"en bufferw: "<<bufferwin->size()<<endl;
+
 }
 
 
@@ -69,7 +66,7 @@ void FiniteBuffer::shiftbuffer(int l, BitInStream* &bis) {
     //lleno el lookaside buffer
     char c;
     max= min(l,ABUF);
-    while( max>0 && (c=bis->getChar())>-1){
+    while( max>0 && (c=bis->getByte())>-1){
         buffer->push_back(c);
         max--;
     }

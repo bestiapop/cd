@@ -23,7 +23,6 @@ Algorithm::~Algorithm() {
 Algorithm::Algorithm(string filein, string fileout){//:bis(filein), bos(fileout) {
     _filein=filein;
     _fileout=fileout;
-    bis= new BitInStream(filein);
 }
 
 
@@ -31,7 +30,7 @@ int* Algorithm::empiricProbability(long int &length){
     int *prob= new int[K];
     length=0;
     char c;
-    while((c=bis->getChar())>-1){
+    while((c=bis->getByte())>-1){
         prob[c]++;
         length++;       
     }
@@ -83,11 +82,10 @@ vector<string*>* Algorithm::generateCode(Nodo*& n) {
     vector<string*> *codes= new vector<string*>(256);
     for(int i=0; i<256; i++)
         (*codes)[i]=NULL;
- 
+     
+    generateCode(n,*codes,"");        
+    return codes;
 }
-
-
-
 
 
 void Algorithm::writeTree(Nodo* &root){
@@ -108,7 +106,7 @@ Nodo* Algorithm::readTree(){
     bit=bis->getBit();
     if(bit){
         char c;
-        c=bis->getChar();
+        c=bis->getByte();
         return new Nodo(c,-1);
     }else{
         Nodo* izq= readTree();
@@ -122,9 +120,14 @@ void Algorithm::decoderDescriptor(int*& prob, vector<string*> * &codes, long int
     //  LONG INT    : how many symbols contains the original file;  
     //  DECODER     : describes the tree parser, this is used for decode de file; 32 bits
     //  ENCODED FILE    
- 
+
     cout<<"Generating tree..."<<endl;
     Nodo * root= generateTree(prob);  
+    
+    //setting the tree to read
+    BitInHuffman *bisd = dynamic_cast<BitInHuffman*>(bis);
+    bisd->setTree(root);     
+    
     cout<<"Generating code..."<<endl;
     codes=generateCode(root);
       

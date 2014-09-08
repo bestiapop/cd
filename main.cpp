@@ -26,7 +26,7 @@ using namespace std;
 
 int main(int argc, char** argv) {
     //GetOpt getopt (argc, argv, "dcs:");
-    /* 
+ 
     Lista args= Lista(3);
     int c;
     bool lz=false;
@@ -133,7 +133,8 @@ int main(int argc, char** argv) {
     else{ 
         cout<<"LZdef"<<endl; //default
     }
-*/
+
+    /*testing
     algorithmController controller;
     controller.setlz77(true,"z",10);
     cout<<"ok"<<endl;
@@ -142,7 +143,7 @@ int main(int argc, char** argv) {
     
     controller.setlz77(false,"z.bin",10);
     controller.encode_decode(false);
-    
+    */
     return 0;
            
 }

@@ -20,6 +20,7 @@ BitOutHuffman::~BitOutHuffman() {
 }
 
 void BitOutHuffman::writeChar(unsigned char c) {
+
         string * toParse= (*_codes)[c];
         cout<<c;
         for(int i=0;i<toParse->length();i++){
@@ -32,6 +33,6 @@ void BitOutHuffman::writeChar(unsigned char c) {
         }
 }
 
-void BitOutHuffman::setCodes(vector<string*>& codes) {
-        _codes= &codes;  
+void BitOutHuffman::setCodes(vector<string*>* & codes) {
+        _codes= codes;  
 }

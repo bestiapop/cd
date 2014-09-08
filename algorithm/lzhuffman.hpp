@@ -10,6 +10,8 @@
 
 #include "Algorithm.hpp"
 #include "lz77.hpp"
+#include "../controllers/BitInHuffman.hpp"
+#include "../controllers/BitOutHuffman.hpp"
 
 class lzhuffman: public lz77 {
 public:

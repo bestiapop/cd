@@ -18,7 +18,7 @@ public:
     BitOutHuffman(const BitOutHuffman& orig);
     
     virtual void writeChar(unsigned char c);
-    void setCodes(vector<string*>& codes);
+    void setCodes(vector<string*>* &codes);
     
     virtual ~BitOutHuffman();
 private:

@@ -23,6 +23,7 @@ Huffman::~Huffman() {
 
 Huffman::Huffman(string filein, string fileout): Algorithm(filein,fileout){
     bos= new BitOutHuffman(fileout);
+    bis= new BitInHuffman(filein);
 }
 
 void Huffman::encode(){
@@ -33,9 +34,11 @@ void Huffman::encode(){
 
     long int length=0;
     vector<string*> * codes;
+    char c;
+    int* prob;
     
     cout<<"Calculating empiric..."<<endl;
-    int* prob= empiricProbability(length);
+    prob= empiricProbability(length);
 
     //write descriptor for decoder
     decoderDescriptor(prob,codes,length,true);
@@ -45,16 +48,15 @@ void Huffman::encode(){
     //
     bis->open(_filein); //second read
     cout<<"Compressing Body..."<<endl;
+    
     //setting code to bos
-    BitOutHuffman *bosd = dynamic_cast<BitOutHuffman*>(bos);
-    bosd->setCodes(*codes);
+    if(BitOutHuffman *bosd = dynamic_cast<BitOutHuffman*>(bos))           
+            bosd->setCodes(codes);         
+        
     
+    while((c=bis->getByte())>-1)
+        bos->writeChar(c);
     
-    char c;
-    while((c=bis->getChar())>-1){
-        //encodeCharHuffman(codes,c);
-        bosd->writeChar(c);
-    }
     
     cout<<endl<<"Finish encoding..."<<endl;
     bis->close();
@@ -70,21 +72,16 @@ void Huffman::encode(){
 void Huffman::decode(){
 
     long int length= bis->getInt();
-    //cout<<length<<endl;
     Nodo* root= readTree();
-    //root->printNodo("*");
+    
+    BitInHuffman *bisd = dynamic_cast<BitInHuffman*>(bis);
+    bisd->setTree(root);
+
     
     bool bit;
     for(int i=0; i<length; i++){
-        Nodo* rec=root;
-        while(!rec->isLeaf()){
-            bit=bis->getBit();
-            if(bit)
-                rec=rec->getRight();
-            else
-                rec=rec->getLeft();       
-        }
-        bos->writeByte(rec->getChar());
+       // bos->writeByte(rec->getChar());
+        bos->writeByte(bis->getChar());
     }
     
     bos->close();

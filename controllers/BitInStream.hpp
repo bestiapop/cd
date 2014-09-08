@@ -22,7 +22,9 @@ public:
     //functions
     void fillBuffer();
     bool getBit();
-    char getChar();
+    char getByte();
+    //for huffman code
+    virtual char getChar();
     long int getInt();
     void close();
     void open(string filein);

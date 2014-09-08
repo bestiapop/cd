@@ -19,6 +19,7 @@ lzhuffman::~lzhuffman() {
 lzhuffman::lzhuffman(int ws, string filein, string fileout):lz77(ws,filein,fileout) {
     _ws=ws;
     bos= new BitOutHuffman(fileout);
+    bis= new BitInHuffman(filein);
 }
 
 void lzhuffman::decode() {
@@ -27,7 +28,7 @@ void lzhuffman::decode() {
     vector<string*> * codes= generateCode(root);
     //setting de code into bos
     BitOutHuffman *bosd = dynamic_cast<BitOutHuffman*>(bos);
-    bosd->setCodes(*codes);
+    bosd->setCodes(codes);
     //decode
     lz77decode();
 }
@@ -44,7 +45,7 @@ void lzhuffman::encode() {
     cout<<"Compressing Body..."<<endl;
     
     BitOutHuffman *bosd = dynamic_cast<BitOutHuffman*>(bos);
-    bosd->setCodes(*codes);
+    bosd->setCodes(codes);
     
     lz77algorithm();
     

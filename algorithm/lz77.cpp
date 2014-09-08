@@ -13,7 +13,7 @@ lz77::lz77(){
 lz77::lz77(int ws,string filein, string fileout):Algorithm(filein,fileout){
     this->ws=ws;
     bos= new BitOutStream(fileout);
-
+    bis= new BitInStream(filein);
 }
 
 
@@ -98,8 +98,8 @@ void lz77::lz77decode() {
     while(!end){
         bool bit=bis->getBit();
         if(bit){ //1
-            int length= (int)bis->getChar();
-            int offset= (int)bis->getChar();
+            int length= (int)bis->getByte();
+            int offset= (int)bis->getByte();
             end= bis->getBit();
             it_aux= it-offset;
             //cout<<"off: "<<offset<<endl;

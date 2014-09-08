@@ -39,6 +39,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/algorithm/Huffman.o \
 	${OBJECTDIR}/algorithm/lz77.o \
 	${OBJECTDIR}/algorithm/lzhuffman.o \
+	${OBJECTDIR}/controllers/BitInHuffman.o \
 	${OBJECTDIR}/controllers/BitInStream.o \
 	${OBJECTDIR}/controllers/BitOutHuffman.o \
 	${OBJECTDIR}/controllers/BitOutStream.o \
@@ -91,6 +92,11 @@ ${OBJECTDIR}/algorithm/lzhuffman.o: algorithm/lzhuffman.cpp
 	${MKDIR} -p ${OBJECTDIR}/algorithm
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/algorithm/lzhuffman.o algorithm/lzhuffman.cpp
+
+${OBJECTDIR}/controllers/BitInHuffman.o: controllers/BitInHuffman.cpp 
+	${MKDIR} -p ${OBJECTDIR}/controllers
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/controllers/BitInHuffman.o controllers/BitInHuffman.cpp
 
 ${OBJECTDIR}/controllers/BitInStream.o: controllers/BitInStream.cpp 
 	${MKDIR} -p ${OBJECTDIR}/controllers

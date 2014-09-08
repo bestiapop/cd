@@ -8,8 +8,6 @@
 #include "BitInStream.hpp"
 
 BitInStream::BitInStream() {
-    //cin>>in;
-    cout<<"instancio"<<endl;
     in= &cin;
     fillBuffer();
 }
@@ -44,43 +42,14 @@ bool BitInStream::getBit(){
     }
     return b;
 }
-/*
-char BitInStream::getChar(){
-    if(buffer!=-1){
-    if(N==8){//buffer lleno devuelvo lo que hay ahi
-        char r=buffer;
-        fillBuffer();
-       //cout<<"finish"<<endl;
-        return r;
-    }
-    
-    int oldN=N;
-    char x=buffer;
-    x= x<<(8-N); //=
-    fillBuffer();
-    if(buffer==-1) return -1;
-    N=oldN;
-    x|= (buffer >> N);
-    //cout<<"finish"<<endl;
-    
-    //print
-    for(int i=1; i<=8;i++){
-        cout<<(bool)(x &(0x0100>>i));
-    }
-    
-    return x;//(x & 0xFF);
-    }
-    return -1;
-}
-*/
 
-char BitInStream::getChar(){
+
+char BitInStream::getByte(){
     char x=0;
     for(int i=1;i<=8;i++){
         bool c=getBit();
         x= x<<1;
         if(c) x|=0x01;
-        //cout<<(bool)c;
     }
     return x;
 }
@@ -90,7 +59,6 @@ void BitInStream::close(){
     if(ofstream * of = dynamic_cast<ofstream *>(in)){
         of->close();
     }
-    //((ifstream*)in)->close(); 
 }
 
 void BitInStream::open(string filein){
@@ -107,10 +75,13 @@ long int BitInStream::getInt() {
     long int x=0;
     for(int i=0; i<4;i++){
         x= x<<8;
-        unsigned char a=getChar();
-        //cout<<a<<endl;
-        x|=(long int)a;//getChar();//8bits
+        unsigned char a=getByte();
+        x|=(long int)a;
         
     }
     return x;
+}
+
+char BitInStream::getChar() {
+    getByte();
 }
