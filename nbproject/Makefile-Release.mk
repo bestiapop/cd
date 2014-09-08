@@ -38,13 +38,12 @@ OBJECTFILES= \
 	${OBJECTDIR}/algorithm/Algorithm.o \
 	${OBJECTDIR}/algorithm/Huffman.o \
 	${OBJECTDIR}/algorithm/lz77.o \
+	${OBJECTDIR}/algorithm/lzhuffman.o \
 	${OBJECTDIR}/controllers/BitInStream.o \
+	${OBJECTDIR}/controllers/BitOutHuffman.o \
 	${OBJECTDIR}/controllers/BitOutStream.o \
 	${OBJECTDIR}/controllers/algorithmController.o \
 	${OBJECTDIR}/main.o \
-	${OBJECTDIR}/method/Method.o \
-	${OBJECTDIR}/method/byteMethod.o \
-	${OBJECTDIR}/method/huffmanMethod.o \
 	${OBJECTDIR}/structures/FiniteBuffer.o \
 	${OBJECTDIR}/structures/Nodo.o
 
@@ -88,10 +87,20 @@ ${OBJECTDIR}/algorithm/lz77.o: algorithm/lz77.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/algorithm/lz77.o algorithm/lz77.cpp
 
+${OBJECTDIR}/algorithm/lzhuffman.o: algorithm/lzhuffman.cpp 
+	${MKDIR} -p ${OBJECTDIR}/algorithm
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/algorithm/lzhuffman.o algorithm/lzhuffman.cpp
+
 ${OBJECTDIR}/controllers/BitInStream.o: controllers/BitInStream.cpp 
 	${MKDIR} -p ${OBJECTDIR}/controllers
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/controllers/BitInStream.o controllers/BitInStream.cpp
+
+${OBJECTDIR}/controllers/BitOutHuffman.o: controllers/BitOutHuffman.cpp 
+	${MKDIR} -p ${OBJECTDIR}/controllers
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/controllers/BitOutHuffman.o controllers/BitOutHuffman.cpp
 
 ${OBJECTDIR}/controllers/BitOutStream.o: controllers/BitOutStream.cpp 
 	${MKDIR} -p ${OBJECTDIR}/controllers
@@ -107,21 +116,6 @@ ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
-
-${OBJECTDIR}/method/Method.o: method/Method.cpp 
-	${MKDIR} -p ${OBJECTDIR}/method
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/method/Method.o method/Method.cpp
-
-${OBJECTDIR}/method/byteMethod.o: method/byteMethod.cpp 
-	${MKDIR} -p ${OBJECTDIR}/method
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/method/byteMethod.o method/byteMethod.cpp
-
-${OBJECTDIR}/method/huffmanMethod.o: method/huffmanMethod.cpp 
-	${MKDIR} -p ${OBJECTDIR}/method
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/method/huffmanMethod.o method/huffmanMethod.cpp
 
 ${OBJECTDIR}/structures/FiniteBuffer.o: structures/FiniteBuffer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/structures

@@ -12,22 +12,30 @@ Algorithm::Algorithm() {
 }
 
 Algorithm::Algorithm(const Algorithm& orig) {
-
+    
 }
 
 Algorithm::~Algorithm() {
+    delete bis;
+    delete bos;
+}
 
+Algorithm::Algorithm(string filein, string fileout){//:bis(filein), bos(fileout) {
+    _filein=filein;
+    _fileout=fileout;
+    bis= new BitInStream(filein);
 }
 
 
-int* Algorithm::empiricProbability(BitInStream &fileread, long int &length){
+int* Algorithm::empiricProbability(long int &length){
     int *prob= new int[K];
+    length=0;
     char c;
-    while((c=fileread.getChar())>-1){
+    while((c=bis->getChar())>-1){
         prob[c]++;
         length++;       
     }
-    fileread.close();
+    bis->close();
 
     return prob;
 }
@@ -58,40 +66,84 @@ Nodo* Algorithm::generateTree(int* frec){
 }
 
 
-void Algorithm::generateCode(Nodo *&n, vector<string*> &code, string ac){
+void Algorithm::generateCode(Nodo *&n, vector<string*>&codes, string ac){
+
     if(n!=NULL){
         if(n->isLeaf()){
-            code[n->getChar()]=new string(ac);
+            codes[n->getChar()]=new string(ac);
         }else{  
-            generateCode(n->getLeft(),code,ac+"0");
-            generateCode(n->getRight(),code,ac+"1");
+            generateCode(n->getLeft(),codes,ac+"0");
+            generateCode(n->getRight(),codes,ac+"1");
         }
     }
 }
 
-void Algorithm::writeTree(Nodo* &root, BitOutStream &fileout){
+//wrapper
+vector<string*>* Algorithm::generateCode(Nodo*& n) {
+    vector<string*> *codes= new vector<string*>(256);
+    for(int i=0; i<256; i++)
+        (*codes)[i]=NULL;
+ 
+}
+
+
+
+
+
+void Algorithm::writeTree(Nodo* &root){
     if(root->isLeaf()){ //hoja
-        fileout.writeBit(true);
+        bos->writeBit(true);
         char c=root->getChar();
-        fileout.writeByte(c);
+        bos->writeByte(c);
     }else{
-        fileout.writeBit(false);
-        writeTree(root->getLeft(),fileout);
-        writeTree(root->getRight(),fileout);
+        bos->writeBit(false);
+        writeTree(root->getLeft());
+        writeTree(root->getRight());
     }
 }
 
 
-Nodo* Algorithm::readTree(BitInStream &filein){
+Nodo* Algorithm::readTree(){
     bool bit;
-    bit=filein.getBit();
+    bit=bis->getBit();
     if(bit){
         char c;
-        c=filein.getChar();
+        c=bis->getChar();
         return new Nodo(c,-1);
     }else{
-        Nodo* izq= readTree(filein);
-        Nodo* der= readTree(filein);
+        Nodo* izq= readTree();
+        Nodo* der= readTree();
         return new Nodo('\0',-1,izq,der);
     }
 }
+
+void Algorithm::decoderDescriptor(int*& prob, vector<string*> * &codes, long int length, bool print_l) {
+    //descriptor para decoder
+    //  LONG INT    : how many symbols contains the original file;  
+    //  DECODER     : describes the tree parser, this is used for decode de file; 32 bits
+    //  ENCODED FILE    
+ 
+    cout<<"Generating tree..."<<endl;
+    Nodo * root= generateTree(prob);  
+    cout<<"Generating code..."<<endl;
+    codes=generateCode(root);
+      
+    cout<<"Writing LONG INT"<<endl;
+    if (print_l) bos->writeInt(length);    
+    cout<<"Writing tree..."<<endl;
+    writeTree(root);
+}
+
+void Algorithm::encodeCharHuffman(vector<string*>& codes, char c) {
+        string * toParse= codes[c];
+        cout<<c;
+        for(int i=0;i<toParse->length();i++){
+            if(toParse->at(i)=='0'){
+                bos->writeBit(false);
+                }
+            else{
+                bos->writeBit(true);
+            }
+        }
+}
+

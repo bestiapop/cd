@@ -6,15 +6,14 @@
                    projectFiles="true">
       <itemPath>algorithm/Algorithm.hpp</itemPath>
       <itemPath>controllers/BitInStream.hpp</itemPath>
+      <itemPath>controllers/BitOutHuffman.hpp</itemPath>
       <itemPath>controllers/BitOutStream.hpp</itemPath>
       <itemPath>structures/FiniteBuffer.hpp</itemPath>
       <itemPath>algorithm/Huffman.hpp</itemPath>
-      <itemPath>method/Method.hpp</itemPath>
       <itemPath>structures/Nodo.hpp</itemPath>
       <itemPath>controllers/algorithmController.hpp</itemPath>
-      <itemPath>method/byteMethod.hpp</itemPath>
-      <itemPath>method/huffmanMethod.hpp</itemPath>
       <itemPath>algorithm/lz77.hpp</itemPath>
+      <itemPath>algorithm/lzhuffman.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -25,15 +24,14 @@
                    projectFiles="true">
       <itemPath>algorithm/Algorithm.cpp</itemPath>
       <itemPath>controllers/BitInStream.cpp</itemPath>
+      <itemPath>controllers/BitOutHuffman.cpp</itemPath>
       <itemPath>controllers/BitOutStream.cpp</itemPath>
       <itemPath>structures/FiniteBuffer.cpp</itemPath>
       <itemPath>algorithm/Huffman.cpp</itemPath>
-      <itemPath>method/Method.cpp</itemPath>
       <itemPath>structures/Nodo.cpp</itemPath>
       <itemPath>controllers/algorithmController.cpp</itemPath>
-      <itemPath>method/byteMethod.cpp</itemPath>
-      <itemPath>method/huffmanMethod.cpp</itemPath>
       <itemPath>algorithm/lz77.cpp</itemPath>
+      <itemPath>algorithm/lzhuffman.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -70,9 +68,17 @@
       </item>
       <item path="algorithm/lz77.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="algorithm/lzhuffman.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="algorithm/lzhuffman.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="controllers/BitInStream.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="controllers/BitInStream.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="controllers/BitOutHuffman.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="controllers/BitOutHuffman.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="controllers/BitOutStream.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -89,18 +95,6 @@
             flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="method/Method.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="method/Method.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="method/byteMethod.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="method/byteMethod.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="method/huffmanMethod.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="method/huffmanMethod.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="structures/FiniteBuffer.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -143,9 +137,17 @@
       </item>
       <item path="algorithm/lz77.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="algorithm/lzhuffman.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="algorithm/lzhuffman.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="controllers/BitInStream.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="controllers/BitInStream.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="controllers/BitOutHuffman.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="controllers/BitOutHuffman.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="controllers/BitOutStream.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -162,18 +164,6 @@
             flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="method/Method.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="method/Method.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="method/byteMethod.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="method/byteMethod.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="method/huffmanMethod.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="method/huffmanMethod.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="structures/FiniteBuffer.cpp" ex="false" tool="1" flavor2="0">
       </item>

@@ -8,24 +8,31 @@
 #ifndef FINITEBUFFER_HPP
 #define	FINITEBUFFER_HPP
 #include <vector>
+#include "../controllers/BitInStream.hpp"
+#define ABUF 7
+
 using namespace std;
 
 class FiniteBuffer {
 public:
     FiniteBuffer();
-    FiniteBuffer(int size);
+    FiniteBuffer(int size, BitInStream * &bis);
     FiniteBuffer(const FiniteBuffer& orig);
-    void push(char c);
     char &operator [](const int index);
-    char at(const int index);
-    int length();
-    void wrap();
+    char at_w(const int index);
+    char at_b(const int index);
+    int length_w();
+    int length_b();
+    
+    
+    void shiftbuffer(int l, BitInStream * &bis);
     
     virtual ~FiniteBuffer();
 private:
-    vector<char> buffer;
-    int size;
-    int current_size;
+    vector<char> *buffer;
+    vector<char> *bufferwin;
+    int size_w;
+    //int current_size;
     
 };
 

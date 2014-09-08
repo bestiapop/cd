@@ -26,7 +26,7 @@ using namespace std;
 
 int main(int argc, char** argv) {
     //GetOpt getopt (argc, argv, "dcs:");
-    
+    /* 
     Lista args= Lista(3);
     int c;
     bool lz=false;
@@ -106,48 +106,17 @@ int main(int argc, char** argv) {
     
     in_file= string(argv[optind]);
     
-    for (int index = optind; index < argc; index++)
-         cout<<"Non-option argument"<< argv[index]<<endl;
-    /*
-    if(lz) cout<<"window size: "<< ws <<endl;
-    cout<<i_file<<endl;
-    cout<<optopt<<endl;    
-       
-        */
-    
-    /*
-    Algorithm *algorithm;
-    
-    Lista args2= Lista(3);
-    //args.push_back("z");
-    cout<<"ok"<<endl;
-    
-    args2[0]=string("z");
-    args2[1]="z.bin";
-    args2[2]="10";
-    algorithm = new Huffman();
-    //Huffman *huff= new Huffman();
-    algorithm->encode(args2);
-    
-     * 
-     * 
-     */
-    
+//    for (int index = optind; index < argc; index++)
+//         cout<<"Non-option argument"<< argv[index]<<endl;
 
-    algorithmController controller;//= new algorithmController();
     
+    algorithmController controller;
+   
     if(h && !lz){
         cout<<"HUFFMAN"<<endl;
-        controller.setAlgorithm(1,in_file,in_file+".bin");
-        //controller.encode_decode(compress,args2[0],args2[1]);
+        controller.setHuffman(compress,in_file);
         cout<<in_file<<endl;
         controller.encode_decode(compress);
-        //Huffman h;
-        
-        //BitInStream bis("z.bin");
-        //BitOutStream bos("z.sal");
-        //h.decode(bis,bos);
-        //controller.encode();
     }
     else if(h && lz){
         cout<<"HUFFMAN+LZ"<<endl;
@@ -155,18 +124,24 @@ int main(int argc, char** argv) {
     }
     else if(!h && lz){
         cout<<"LZ"<<endl;
-        
+        ////////WSSSS!
+        cout<<in_file<<endl;
+
+        controller.setlz77(compress,in_file,10);
+        controller.encode_decode(compress);
     }
     else{ 
-        cout<<"LZ"<<endl; //default
+        cout<<"LZdef"<<endl; //default
     }
-
-        //Huffman huff;
-        
-        //BitInStream bis("z.bin");
-        //BitOutStream bos("z.sal");
-        //huff.decode(bis,bos);
-        //controller.encode();
+*/
+    algorithmController controller;
+    controller.setlz77(true,"z",10);
+    cout<<"ok"<<endl;
+    controller.encode_decode(true);
+    
+    
+    controller.setlz77(false,"z.bin",10);
+    controller.encode_decode(false);
     
     return 0;
            

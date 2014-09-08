@@ -21,105 +21,73 @@ Huffman::Huffman(const Huffman& orig) {
 Huffman::~Huffman() {
 }
 
+Huffman::Huffman(string filein, string fileout): Algorithm(filein,fileout){
+    bos= new BitOutHuffman(fileout);
+}
 
-void Huffman::encode(BitInStream &fileread, BitOutStream &filewrite){
+void Huffman::encode(){
     
-    //string in_name = args[0];
-    //string out_name = args[1];
-    //BitInStream fileread(in_name);
-    //BitOutStream filewrite(out_name);
-    //BitInStream fileread;
-    //BitOutStream filewrite;
-    
-    string in_name="z";
-            
-            
+    /****************************/
+    //           VAR            //
+    /****************************/
+
     long int length=0;
-    
-    vector<string*> codes= vector<string*>(256);
-    for(int i=0; i<256; i++)
-        codes[i]=NULL;
+    vector<string*> * codes;
     
     cout<<"Calculating empiric..."<<endl;
-    int* prob= empiricProbability(fileread,length);
-    fileread.close();
-    //cierro, luego lo abro nuevamente
-    
-    cout<<"Generating tree..."<<endl;
-    Nodo * root= generateTree(prob);
-        
-    cout<<"Generating code..."<<endl;
-    generateCode(root,codes,"");
-      
-    //descriptor para decoder
-    //  LONG INT    : how many symbols contains the original file;  
-    //  DECODER     : describes the tree parser, this is used for decode de file; 32 bits
-    //  ENCODED FILE
-    
-    cout<<"Writing LONG INT"<<endl;
-    filewrite.writeInt(length);
-    cout<<length<<endl;
-    
-    cout<<"Writing tree..."<<endl;
-    writeTree(root,filewrite);
+    int* prob= empiricProbability(length);
 
-    fileread.open(in_name); //second read
+    //write descriptor for decoder
+    decoderDescriptor(prob,codes,length,true);
     
+    //
+    //  Write Body
+    //
+    bis->open(_filein); //second read
     cout<<"Compressing Body..."<<endl;
+    //setting code to bos
+    BitOutHuffman *bosd = dynamic_cast<BitOutHuffman*>(bos);
+    bosd->setCodes(*codes);
+    
+    
     char c;
-    while((c=fileread.getChar())>-1){
-        string * toParse= codes[c];
-        cout<<c;
-        for(int i=0;i<toParse->length();i++){
-            if(toParse->at(i)=='0'){
-                filewrite.writeBit(false);
-                }
-            else{
-                filewrite.writeBit(true);
-            }
-        }   
+    while((c=bis->getChar())>-1){
+        //encodeCharHuffman(codes,c);
+        bosd->writeChar(c);
     }
     
     cout<<endl<<"Finish encoding..."<<endl;
-    fileread.close();
-    filewrite.close();
+    bis->close();
+    bos->close();
 
     //delete memory
     delete [] prob;
-    codes.erase(codes.begin(),codes.end());
+    //codes.erase(codes.begin(),codes.end());
+    delete codes;
     //delete tree  
 }
 
-void Huffman::decode(BitInStream &filein, BitOutStream &fileout){
-    //string in_name = args[0];
-    //string out_name = args[1];
-    
-    //BitInStream filein(in_name);
-    //BitOutStream fileout(out_name);
-    //BitInStream filein;
-    //BitOutStream fileout;
-    
-    cout<<"start decoding"<<endl;
-    
-    long int length= filein.getInt();
-    cout<<length<<endl;
-    Nodo* root= readTree(filein);
+void Huffman::decode(){
+
+    long int length= bis->getInt();
+    //cout<<length<<endl;
+    Nodo* root= readTree();
     //root->printNodo("*");
     
     bool bit;
     for(int i=0; i<length; i++){
         Nodo* rec=root;
         while(!rec->isLeaf()){
-            bit=filein.getBit();
+            bit=bis->getBit();
             if(bit)
                 rec=rec->getRight();
             else
                 rec=rec->getLeft();       
         }
-        fileout.writeByte(rec->getChar());
+        bos->writeByte(rec->getChar());
     }
     
-    fileout.close();
-    filein.close();
+    bos->close();
+    bis->close();
     //delete tree
 }

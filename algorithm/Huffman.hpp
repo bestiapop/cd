@@ -9,17 +9,20 @@
 #define	HUFFMAN_HPP
 
 #include "Algorithm.hpp"
-
+#include "../controllers/BitOutHuffman.hpp"
 
 class Huffman: public Algorithm{
 public:
     Huffman();
     Huffman(const Huffman& orig);
+    Huffman(string, string);
     
-    virtual void encode(BitInStream &, BitOutStream &);
-    virtual void decode(BitInStream &, BitOutStream &);
+    virtual void encode();
+    virtual void decode();
     
     virtual ~Huffman();
+private:
+
 };
 
 #endif	/* HUFFMAN_HPP */

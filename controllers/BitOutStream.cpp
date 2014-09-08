@@ -8,7 +8,7 @@
 #include "BitOutStream.hpp"
 
 
-BitOutStream::BitOutStream() {
+BitOutStream::BitOutStream(){
     //out =&cout;
 }
 
@@ -64,7 +64,7 @@ void BitOutStream::writeBit(bool bit){
         N=0;
         buffer=0;
     }
-
+    
 }
 
 unsigned char BitOutStream::getBuffer(){
@@ -83,6 +83,10 @@ void BitOutStream::writeByte(unsigned char byte){
     }
 }
 
+void BitOutStream::writeChar(unsigned char byte){
+    writeByte(byte);
+}
+
 void BitOutStream::writeInt(long int x) {
     writeByte((x>>24) & 0xFF);
     //cout<<endl;
@@ -93,3 +97,7 @@ void BitOutStream::writeInt(long int x) {
     writeByte(x & 0xFF);
 
 }
+
+
+
+

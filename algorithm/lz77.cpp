@@ -7,13 +7,14 @@
 
 #include "lz77.hpp"
 
-lz77::lz77() {
+lz77::lz77(){
 }
 
-lz77::lz77(int ws) {
+lz77::lz77(int ws,string filein, string fileout):Algorithm(filein,fileout){
     this->ws=ws;
-}
+    bos= new BitOutStream(fileout);
 
+}
 
 
 lz77::lz77(const lz77& orig) {
@@ -22,205 +23,119 @@ lz77::lz77(const lz77& orig) {
 lz77::~lz77() {
 }
 
-void lz77::encode(BitInStream &bis, BitOutStream &bos) {
-    //string in_name = args[0];
-    //string out_name = args[1];
-    //istringstream parser(args[2]);
-    //int ws;
-    //parser>>ws;
-    
-    //cout<<in_name<<out_name<<ws<<endl;
-    
-    //BitOutStream bos(out_name);
-    //BitInStream bis(in_name);
-    //BitOutStream bos;
-    //BitInStream bis;
-  
-    //char c1;///= bis.getChar();
-    //while((c1=bis.getChar())>-1) cout<<c1<<"XX"<<endl;
-    //bis.close();
-    //bis.open(name_in);
-    
-    //Method *m = new byteMethod(bis,bos);    
-    FiniteBuffer *buffer= new FiniteBuffer(ws);
-    
-    int pos_current=0;   
-    char ch=bis.getChar();
-    buffer->push(ch); 
-
-    
-    while(ch>-1){
-    //char to_write=ch;
-    int offset=0;
-    int length=0;   
-
-    //cout<<"currentpos:"<<pos_current<<"   "<<buffer->at(pos_current)<<endl;
-    for(int i=0; i<pos_current;i++){
-        int i_aux=i;
-        int count=0;
-        int pos_aux=pos_current;
-        char c=ch;
-
-        while(c>-1 && buffer->at(pos_aux)==buffer->at(i_aux) && i_aux<=pos_current+1){
-            pos_aux++;
-            i_aux++;       
-            count++;
-            if(pos_aux>buffer->length()-1){
-                c=bis.getChar();
-                ch=c;
-                if(c>-1){
-                    buffer->push(c);                    
-                }
-            }else
-                c=buffer->at(pos_aux); 
-        }
-        if(count>3 && count>length){
-            //offset= largo-i;
-            offset= pos_current-i;
-            length=count;
-        } 
-    }//for
-        
-    if(length>3){
-        cout<<"("<<length<<","<<offset<<")"<<endl;
-        //m->writeBit(true);
-        //m->writeChar((unsigned char)length);
-        //m->writeChar((unsigned char)offset);
-    }else
-        cout<<"["<<buffer->at(pos_current)<<"]"<<endl;
-    
-    
-        //m->writeChar((unsigned char)to_write);
-        
-        
-        //if(buffer->length()-1>pos_current ||length<4){
-        //    cout<<buffer->length()<<" "<<pos_current<<endl;
-        //   pos_current++; //aumento 1
-        //    ch=buffer->at(pos_current);
-        //}
-        
-        
-        //buffer->wrap();
-        if(length>3){
-            //cout<<"lenopantes"<<ch<<endl;
-            if(!(buffer->length()-1>pos_current)){
-                ch=bis.getChar();
-                buffer->push(ch);
-            }
-            //ch=m->readChar();           
-            //buffer->push(ch); //new
-            pos_current+=length;
-            //cout<<"lenop"<<ch<<endl;
-            //ch= buffer->at(pos_current);
-        }
-        else{
-            //ch=m->readChar();
-            //buffer->push(ch);
-            if(!(buffer->length()-1>pos_current)){
-                ch=bis.getChar();
-                buffer->push(ch);
-            }
-            pos_current++;
-            ch=buffer->at(pos_current);
-            //cout<<"else:"<<ch<<endl;
-        }
-        
-
-    }//while    
-    
-    bis.close();
-    bos.close();
-
-}
 
 
-
-
-void lz77::code2(string name_in, string name_out, int ws) {
+void lz77::lz77algorithm() {
     
-    BitOutStream bos(name_out);
-    BitInStream bis(name_in);
-
-    Method *m = new byteMethod(bis,bos);
-    //vector<char> *v= new vector<char>();
+    FiniteBuffer buffer(ws, bis);
     
-    FiniteBuffer *buffer= new FiniteBuffer(ws);
-    //buffer->push('c');
-    //string to_code="aaaaaakkkkkkkkkkkkkk\0";
-    string to_code="aaakkk\0";
-    
-    
-    //windows size
-    //int ws=10;
-    
-    //best
+    while(buffer.length_b()>0){
     int offset=0;
     int length=0;
-    
-    //no me sirven las primeras 3, no matcheo mayor que 3
-    //for(int j=0;j<3;j++) cout<<to_code.at(j)<<endl;
-    int currentPos=0;
-    
-    char c;
-    //while((c=m->)>-1){//
-    //long int length_file= 
-    
-    
-    while(currentPos<to_code.length()){
-    int offset=0;
-    int length=0;    
-    cout<<"currentpos:"<<currentPos<<endl;    
-    int posIt=max(currentPos-ws,0);
-    unsigned char c= to_code.at(currentPos);
-         
-    //unsigned char c= ch;
-    
-    for(int i=posIt; i<currentPos;i++){ //no me sirve 2
-    //for(int i=0; i<ws;i++){  
-        int pos_aux=currentPos;
+
+    for(int i=0; i<buffer.length_w();i++){
         int i_aux=i;
-        int count=0;
-        while(  pos_aux<to_code.length() && 
-                to_code.at(pos_aux)==to_code.at(i_aux) &&
-                i_aux<=currentPos+1){
-        //char ch2;
-            pos_aux++;
-            //buffer->push(ch2);
-            i_aux++;       
-            count++;
+        int aux=0;
+        int largo=0;
+        int offseta=0;
+        while(aux<buffer.length_b() && i_aux<buffer.length_w() && buffer.at_w(i_aux)==buffer.at_b(aux)){
+            i_aux++;
+            aux++;
+            largo++;
+            offseta=buffer.length_w()-i;
+        }
+        //otro while
+        if(i_aux==buffer.length_w()){
+            i_aux=0;
+            while(aux<buffer.length_b() && buffer.at_b(i_aux)==buffer.at_b(aux)){
+                offseta=buffer.length_w()-i;
+                i_aux++;
+                aux++;
+                largo++;
+            }
+        
         }
         
-        
-        if(count>3 && count>length){
-            offset=currentPos-i;
-            //offset= ws-i;
-            //offset= largo-i;
-            length=count;
-        } 
-    }//for
-        
-    if(length>3){
-        cout<<"("<<length<<","<<offset<<")"<<endl;//c<<")"<<endl;
-        //m->writeBit(true);
-        //m->writeChar((unsigned char)length);
-        //m->writeChar((unsigned char)offset);
-    }else{
-        //m->writeBit(false);
-        //m->writeChar(c);
-        //cout<<c<<endl;
-        
-    }
-    cout<<c<<endl;
-    if(length>3)
-        currentPos+= length;
-    else
-        currentPos++;
-    }//while    
+        if(largo>length ){
+            length=largo;
+            offset=offseta;
+        }
     
-    bos.close();
-    bis.close();
+    }
+    
+    if(length>3){
+        //cout<<"("<<length<<","<<offset<<")"<<endl;
+        bos->writeBit(true);
+        bos->writeByte((unsigned char)length);
+        bos->writeByte((unsigned char)offset);
+    }
+    else{
+        length=1;
+        //cout<<"["<<buffer.at_b(0)<<"]"<<endl;
+        bos->writeBit(false);
+        bos->writeChar(buffer.at_b(0));
+    }
+    
+    buffer.shiftbuffer(length,bis);
+    
+    if(buffer.length_b()!=0)
+        bos->writeBit(false);    
+    else
+        bos->writeBit(true);    
+    }
+
+    bis->close();
+    bos->close();
 }
 
-void lz77::decode(BitInStream & bis, BitOutStream &bos) {
 
+
+void lz77::lz77decode() {
+    char * buffer = new char[ws];
+    long int it=0;
+    long int it_aux;
+    bool end=false;
+    while(!end){
+        bool bit=bis->getBit();
+        if(bit){ //1
+            int length= (int)bis->getChar();
+            int offset= (int)bis->getChar();
+            end= bis->getBit();
+            it_aux= it-offset;
+            //cout<<"off: "<<offset<<endl;
+            it+=length;
+            //cout<<"while"<<it<<" "<<length<<endl;
+            while(length>0 ){//|| it_aux<=it){
+                cout<<buffer[it_aux%ws]<<endl;
+                buffer[(it_aux+offset)%ws]=buffer[it_aux%ws];
+                //print in file
+                bos->writeByte(buffer[it_aux%ws]);
+                it_aux++;
+                length--;
+            }
+            //it=it_aux+1; //added +1
+            
+        }else{//single char
+            //cout<<"IT:single"<<it<<endl;
+            buffer[it%ws]=bis->getChar();
+            end=bis->getBit();
+            //cout<<buffer[it%ws]<<endl;
+            //print in file
+            bos->writeByte(buffer[it%ws]);
+            it++;           
+        }   
+    }
+    
+    bos->close();
+    bis->close();
+    delete [] buffer;
+}
+
+
+void lz77::encode() {
+    lz77algorithm();
+}
+
+void lz77::decode() {
+    lz77decode();
 }

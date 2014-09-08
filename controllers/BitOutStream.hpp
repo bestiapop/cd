@@ -12,6 +12,7 @@
 #include <fstream>
 #include <string>
 #include <iostream>
+#include <vector>
 using namespace std;
 
 class BitOutStream {
@@ -25,6 +26,8 @@ public:
     void clearBuffer();
     void writeBit(bool bit);
     void writeByte(unsigned char byte);
+    virtual void writeChar(unsigned char byte);
+    
     //int getN();
     unsigned char getBuffer();
     void writeInt(long int x);
@@ -33,7 +36,7 @@ public:
     void close();
     
     
-private:
+protected:
     ofstream out;
     int N;
     unsigned char buffer;

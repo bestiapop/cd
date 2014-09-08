@@ -7,14 +7,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/home/leo/NetBeansProjects/HuffmanCode/structures/FiniteBuffer.cpp</file>
             <file>file:/home/leo/NetBeansProjects/HuffmanCode/main.cpp</file>
-            <file>file:/home/leo/NetBeansProjects/HuffmanCode/algorithm/Huffman.cpp</file>
-            <file>file:/home/leo/NetBeansProjects/HuffmanCode/controllers/BitOutStream.hpp</file>
             <file>file:/home/leo/NetBeansProjects/HuffmanCode/controllers/BitOutStream.cpp</file>
             <file>file:/home/leo/NetBeansProjects/HuffmanCode/algorithm/lz77.cpp</file>
-            <file>file:/home/leo/NetBeansProjects/HuffmanCode/controllers/algorithmController.cpp</file>
-            <file>file:/home/leo/NetBeansProjects/HuffmanCode/algorithm/lz77.hpp</file>
-            <file>file:/home/leo/NetBeansProjects/HuffmanCode/controllers/algorithmController.hpp</file>
+            <file>file:/home/leo/NetBeansProjects/HuffmanCode/structures/FiniteBuffer.hpp</file>
+            <file>file:/home/leo/NetBeansProjects/HuffmanCode/algorithm/lzhuffman.hpp</file>
         </group>
     </open-files>
 </project-private>
