@@ -37,8 +37,8 @@ void Huffman::encode(){
     char c;
     int* prob;
     
-    cout<<"Calculating empiric..."<<endl;
-    prob= empiricProbability(length);
+    //cout<<"Calculating empiric..."<<endl;
+    //prob= empiricProbability(length);
 
     //write descriptor for decoder
     decoderDescriptor(prob,codes,length,true);
@@ -50,8 +50,8 @@ void Huffman::encode(){
     cout<<"Compressing Body..."<<endl;
     
     //setting code to bos
-    if(BitOutHuffman *bosd = dynamic_cast<BitOutHuffman*>(bos))           
-            bosd->setCodes(codes);         
+    //if(BitOutHuffman *bosd = dynamic_cast<BitOutHuffman*>(bos))           
+    //        bosd->setCodes(codes);         
         
     
     while((c=bis->getByte())>-1)

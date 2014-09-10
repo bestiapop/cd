@@ -22,7 +22,7 @@ BitOutHuffman::~BitOutHuffman() {
 void BitOutHuffman::writeChar(unsigned char c) {
 
         string * toParse= (*_codes)[c];
-        cout<<c;
+        //cout<<c;
         for(int i=0;i<toParse->length();i++){
             if(toParse->at(i)=='0'){
                 writeBit(false);

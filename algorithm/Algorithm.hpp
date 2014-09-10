@@ -18,6 +18,7 @@
 #include "../controllers/BitInStream.hpp"
 #include "../controllers/BitOutStream.hpp"
 #include "../controllers/BitInHuffman.hpp"
+#include "../controllers/BitOutHuffman.hpp"
 #include "../structures/Nodo.hpp"
 #include "../structures/FiniteBuffer.hpp"
 

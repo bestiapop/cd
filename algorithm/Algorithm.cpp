@@ -120,7 +120,9 @@ void Algorithm::decoderDescriptor(int*& prob, vector<string*> * &codes, long int
     //  LONG INT    : how many symbols contains the original file;  
     //  DECODER     : describes the tree parser, this is used for decode de file; 32 bits
     //  ENCODED FILE    
-
+    
+    prob= empiricProbability(length);
+    
     cout<<"Generating tree..."<<endl;
     Nodo * root= generateTree(prob);  
     
@@ -130,6 +132,11 @@ void Algorithm::decoderDescriptor(int*& prob, vector<string*> * &codes, long int
     
     cout<<"Generating code..."<<endl;
     codes=generateCode(root);
+    
+    //setting code for bos
+    if(BitOutHuffman *bosd = dynamic_cast<BitOutHuffman*>(bos))           
+            bosd->setCodes(codes);         
+    
       
     cout<<"Writing LONG INT"<<endl;
     if (print_l) bos->writeInt(length);    

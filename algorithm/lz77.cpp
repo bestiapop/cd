@@ -106,7 +106,7 @@ void lz77::lz77decode() {
             it+=length;
             //cout<<"while"<<it<<" "<<length<<endl;
             while(length>0 ){//|| it_aux<=it){
-                cout<<buffer[it_aux%ws]<<endl;
+                //cout<<buffer[it_aux%ws]<<endl;
                 buffer[(it_aux+offset)%ws]=buffer[it_aux%ws];
                 //print in file
                 bos->writeByte(buffer[it_aux%ws]);

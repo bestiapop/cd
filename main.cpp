@@ -120,6 +120,9 @@ int main(int argc, char** argv) {
     }
     else if(h && lz){
         cout<<"HUFFMAN+LZ"<<endl;
+        //WSSS!
+        controller.setHuffmanlz77(compress,in_file,10);
+        controller.encode_decode(compress);
         //
     }
     else if(!h && lz){

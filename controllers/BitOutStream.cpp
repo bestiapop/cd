@@ -49,7 +49,7 @@ void BitOutStream::clearBuffer(){
 
 void BitOutStream::writeBit(bool bit){
     //buffer |= (bit ? 1 : 0) << (8-N); //okkk!?
-    cout<<bit;
+    //cout<<bit;
     
     buffer=buffer<<1; //shift 1
     if(bit) buffer|= 0x01; //add last bit 1

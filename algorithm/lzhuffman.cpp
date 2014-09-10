@@ -17,7 +17,7 @@ lzhuffman::~lzhuffman() {
 }
 
 lzhuffman::lzhuffman(int ws, string filein, string fileout):lz77(ws,filein,fileout) {
-    _ws=ws;
+   // _ws=ws;
     bos= new BitOutHuffman(fileout);
     bis= new BitInHuffman(filein);
 }
@@ -25,6 +25,8 @@ lzhuffman::lzhuffman(int ws, string filein, string fileout):lz77(ws,filein,fileo
 void lzhuffman::decode() {
     //readtree & generate code
     Nodo * root=readTree();
+    BitInHuffman *bisd = dynamic_cast<BitInHuffman*>(bis);
+    bisd->setTree(root);
     vector<string*> * codes= generateCode(root);
     //setting de code into bos
     BitOutHuffman *bosd = dynamic_cast<BitOutHuffman*>(bos);
@@ -38,15 +40,18 @@ void lzhuffman::encode() {
     long int length=0;
     vector<string*> *codes;
 
-    int* prob= empiricProbability(length);
+    int* prob;//= empiricProbability(length);
     decoderDescriptor(prob,codes,length,false);
     
     bis->open(_filein); //second read
     cout<<"Compressing Body..."<<endl;
     
-    BitOutHuffman *bosd = dynamic_cast<BitOutHuffman*>(bos);
-    bosd->setCodes(codes);
+    //BitOutHuffman *bosd = dynamic_cast<BitOutHuffman*>(bos);
+    //bosd->setCodes(codes);
     
     lz77algorithm();
+    
+    delete [] prob;
+    delete codes;
     
 }
