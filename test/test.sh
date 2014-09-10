@@ -1,4 +1,4 @@
-H=../huffmancode
+H=../code
 ext="h"
 
 echo "Testing Huffman..."

@@ -2,7 +2,7 @@ CC= g++ -c
 
 all: code
 
-code: controllers.o method.o structures.o algorithm.o main.o
+code: controllers.o structures.o algorithm.o main.o
 	g++ *.o -o code
 	
 main.o: 
@@ -11,10 +11,6 @@ main.o:
 controllers.o: 
 	$(CC) ./controllers/*.cpp
 #BitInStream.cpp ./controllers/BitOutStream.cpp
-
-method.o:
-	$(CC) ./method/*.cpp
-#Method.cpp ./method/byteMethod.cpp ./method/huffmanMethod.cpp 
 
 structures.o:
 	$(CC) ./structures/*.cpp
