@@ -27,14 +27,15 @@ using namespace std;
 int main(int argc, char** argv) {
     //GetOpt getopt (argc, argv, "dcs:");
  
-    Lista args= Lista(3);
+    //Lista args= Lista(3);
     int c;
     bool lz=false;
     bool h=false;
     bool compress=false;
-    bool xtract=false;
-    string h_file;
-    string i_file; 
+    //bool xtract=false;
+    //string h_file;
+    //string i_file; 
+    string output_file;
     string in_file;
     string ws;
     
@@ -42,8 +43,12 @@ int main(int argc, char** argv) {
     //h == huffman
     //
     
-    while((c=getopt(argc,argv,"cxhzidw"))!=-1){
+    while((c=getopt(argc,argv,"cxhzidwo:"))!=-1){
         switch(c){
+            case 'o':
+                output_file= string(optarg);
+                break;
+                
             case 'i':
                 if(optarg==NULL){
                     cout<<"option -i requires argument\n";
@@ -54,29 +59,13 @@ int main(int argc, char** argv) {
                 
             case 'c':
                 compress=true;
-                //if(xtract){
-                //    compress=false;
-                //}
-                //in_file=string(optarg);
-                //args[1]=string(optarg);
                 break;
                 
             case 'x':
-                //if(optarg==NULL){
-                //    cout<<"option -c requires in file to decode\n";
-                //    return -1;
-                //}
-                compress=false;
-                //if(compress){
-                //    xtract=false;
-                //    in_file=string(optarg);
-                //}
-                
+                compress=false;           
                 break;
                 
             case 'h':
-                //if(optarg!=NULL)
-                //    h_file=string(optarg);
                 h=true;
                 break;
                 
@@ -106,31 +95,33 @@ int main(int argc, char** argv) {
     
     in_file= string(argv[optind]);
     
+    
+    //cout<<"INFILE:"<<in_file<<endl;
+    //cout<<"OUTFILE:"<<output_file<<endl;
 //    for (int index = optind; index < argc; index++)
 //         cout<<"Non-option argument"<< argv[index]<<endl;
 
     
     algorithmController controller;
-   
+    
     if(h && !lz){
-        cout<<"HUFFMAN"<<endl;
-        controller.setHuffman(compress,in_file);
-        cout<<in_file<<endl;
+        //cout<<"HUFFMAN"<<endl;
+        controller.setHuffman(compress,in_file, output_file);
         controller.encode_decode(compress);
     }
     else if(h && lz){
         cout<<"HUFFMAN+LZ"<<endl;
         //WSSS!
-        controller.setHuffmanlz77(compress,in_file,10);
+        controller.setHuffmanlz77(compress,in_file,output_file,10);
         controller.encode_decode(compress);
         //
     }
     else if(!h && lz){
         cout<<"LZ"<<endl;
         ////////WSSSS!
-        cout<<in_file<<endl;
+        //cout<<in_file<<endl;
 
-        controller.setlz77(compress,in_file,10);
+        controller.setlz77(compress,in_file,output_file,10);
         controller.encode_decode(compress);
     }
     else{ 
@@ -139,14 +130,23 @@ int main(int argc, char** argv) {
 
     /*testing
     algorithmController controller;
-    controller.setlz77(true,"z",10);
+    controller.setlz77(true,"z","z.sal",10);
     cout<<"ok"<<endl;
     controller.encode_decode(true);
     
     
-    controller.setlz77(false,"z.bin",10);
+    controller.setlz77(false,"z.sal","z.comp",10);
     controller.encode_decode(false);
     */
-    return 0;
+    
+    /*
+    algorithmController controller;
+    controller.setHuffmanlz77(true,"z","z.sal",10);
+    controller.encode_decode(true);
+    
+    algorithmController controller2;
+    controller2.setHuffmanlz77(false,"z.sal","z.comp",10);
+    controller2.encode_decode(false);
+    return 0;*/
            
 }

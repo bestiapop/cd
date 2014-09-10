@@ -123,14 +123,14 @@ void Algorithm::decoderDescriptor(int*& prob, vector<string*> * &codes, long int
     
     prob= empiricProbability(length);
     
-    cout<<"Generating tree..."<<endl;
+    //cout<<"Generating tree..."<<endl;
     Nodo * root= generateTree(prob);  
     
     //setting the tree to read
     BitInHuffman *bisd = dynamic_cast<BitInHuffman*>(bis);
     bisd->setTree(root);     
     
-    cout<<"Generating code..."<<endl;
+    //cout<<"Generating code..."<<endl;
     codes=generateCode(root);
     
     //setting code for bos
@@ -138,9 +138,9 @@ void Algorithm::decoderDescriptor(int*& prob, vector<string*> * &codes, long int
             bosd->setCodes(codes);         
     
       
-    cout<<"Writing LONG INT"<<endl;
-    if (print_l) bos->writeInt(length);    
-    cout<<"Writing tree..."<<endl;
+    //cout<<"Writing LONG INT"<<endl;
+    if (print_l) bos->writeInt(length);  
+    //cout<<"Writing tree..."<<endl;
     writeTree(root);
 }
 

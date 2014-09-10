@@ -47,7 +47,7 @@ void Huffman::encode(){
     //  Write Body
     //
     bis->open(_filein); //second read
-    cout<<"Compressing Body..."<<endl;
+    //cout<<"Compressing Body..."<<endl;
     
     //setting code to bos
     //if(BitOutHuffman *bosd = dynamic_cast<BitOutHuffman*>(bos))           
@@ -58,7 +58,7 @@ void Huffman::encode(){
         bos->writeChar(c);
     
     
-    cout<<endl<<"Finish encoding..."<<endl;
+    //cout<<endl<<"Finish encoding..."<<endl;
     bis->close();
     bos->close();
 

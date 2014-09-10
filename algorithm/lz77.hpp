@@ -27,7 +27,7 @@ public:
     lz77(int ws,string,string);
     
     void lz77algorithm();
-    void lz77decode();
+    void lz77decode(long int lfile);
     virtual void encode();
     virtual void decode();
 

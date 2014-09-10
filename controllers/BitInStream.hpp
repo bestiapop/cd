@@ -29,6 +29,7 @@ public:
     void close();
     void open(string filein);
     bool valid();
+    long int fileLength();
     
     virtual ~BitInStream();
     

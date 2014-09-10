@@ -26,7 +26,7 @@ lz77::~lz77() {
 
 
 void lz77::lz77algorithm() {
-    
+      
     FiniteBuffer buffer(ws, bis);
     
     while(buffer.length_b()>0){
@@ -78,10 +78,10 @@ void lz77::lz77algorithm() {
     
     buffer.shiftbuffer(length,bis);
     
-    if(buffer.length_b()!=0)
-        bos->writeBit(false);    
-    else
-        bos->writeBit(true);    
+    //if(buffer.length_b()!=0)
+    //    bos->writeBit(false);    
+    //else
+    //    bos->writeBit(true);    
     }
 
     bis->close();
@@ -90,37 +90,26 @@ void lz77::lz77algorithm() {
 
 
 
-void lz77::lz77decode() {
+void lz77::lz77decode(long int lfile) {
     char * buffer = new char[ws];
     long int it=0;
     long int it_aux;
-    bool end=false;
-    while(!end){
+
+    while(it<lfile){
         bool bit=bis->getBit();
         if(bit){ //1
             int length= (int)bis->getByte();
             int offset= (int)bis->getByte();
-            end= bis->getBit();
             it_aux= it-offset;
-            //cout<<"off: "<<offset<<endl;
             it+=length;
-            //cout<<"while"<<it<<" "<<length<<endl;
-            while(length>0 ){//|| it_aux<=it){
-                //cout<<buffer[it_aux%ws]<<endl;
+            while(length>0 ){
                 buffer[(it_aux+offset)%ws]=buffer[it_aux%ws];
-                //print in file
                 bos->writeByte(buffer[it_aux%ws]);
                 it_aux++;
                 length--;
-            }
-            //it=it_aux+1; //added +1
-            
+            }            
         }else{//single char
-            //cout<<"IT:single"<<it<<endl;
             buffer[it%ws]=bis->getChar();
-            end=bis->getBit();
-            //cout<<buffer[it%ws]<<endl;
-            //print in file
             bos->writeByte(buffer[it%ws]);
             it++;           
         }   
@@ -133,9 +122,13 @@ void lz77::lz77decode() {
 
 
 void lz77::encode() {
+    long int lfile= bis->fileLength()+1;
+    bos->writeInt(lfile);
+    bis->open(_filein);
     lz77algorithm();
 }
 
 void lz77::decode() {
-    lz77decode();
+    long int lfile= bis->getInt();
+    lz77decode(lfile);
 }

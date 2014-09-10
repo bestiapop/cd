@@ -18,9 +18,9 @@ public:
     algorithmController();
     algorithmController(const algorithmController& orig);
     
-    void setHuffman(bool compress,string infile);
-    void setHuffmanlz77(bool compress,string infile,int ws);
-    void setlz77(bool compress,string infile,int ws);
+    void setHuffman(bool compress,string infile, string output);
+    void setHuffmanlz77(bool compress,string infile, string output,int ws);
+    void setlz77(bool compress,string infile, string output,int ws);
     
     void encode_decode(bool encode);
     void encode();

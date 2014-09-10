@@ -8,7 +8,7 @@
 #include "BitInStream.hpp"
 
 BitInStream::BitInStream() {
-    in= &cin;
+    //in= &cin;
     fillBuffer();
 }
 
@@ -84,4 +84,15 @@ long int BitInStream::getInt() {
 
 char BitInStream::getChar() {
     getByte();
+}
+
+long int BitInStream::fileLength() {
+    streampos begin, end;
+    begin= in->tellg();
+    in->seekg(0, ios::end);
+    end= in->tellg();
+    in->clear();
+    in->seekg(begin);
+    return end-begin;
+    
 }
