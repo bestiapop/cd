@@ -37,6 +37,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/algorithm/Algorithm.o \
 	${OBJECTDIR}/algorithm/Huffman.o \
+	${OBJECTDIR}/algorithm/huffmanlzfile.o \
 	${OBJECTDIR}/algorithm/lz77.o \
 	${OBJECTDIR}/algorithm/lzhuffman.o \
 	${OBJECTDIR}/controllers/BitInHuffman.o \
@@ -82,6 +83,11 @@ ${OBJECTDIR}/algorithm/Huffman.o: algorithm/Huffman.cpp
 	${MKDIR} -p ${OBJECTDIR}/algorithm
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/algorithm/Huffman.o algorithm/Huffman.cpp
+
+${OBJECTDIR}/algorithm/huffmanlzfile.o: algorithm/huffmanlzfile.cpp 
+	${MKDIR} -p ${OBJECTDIR}/algorithm
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/algorithm/huffmanlzfile.o algorithm/huffmanlzfile.cpp
 
 ${OBJECTDIR}/algorithm/lz77.o: algorithm/lz77.cpp 
 	${MKDIR} -p ${OBJECTDIR}/algorithm

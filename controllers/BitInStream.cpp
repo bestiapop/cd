@@ -8,17 +8,19 @@
 #include "BitInStream.hpp"
 
 BitInStream::BitInStream() {
-    //in= &cin;
+    in= &cin;
     fillBuffer();
 }
 
 void BitInStream::fillBuffer(){
     //in>>buffer;
     buffer=in->get();
+   //cout<<buffer<<endl;
     N=8;//0
 }
 
 BitInStream::BitInStream(string filein) {
+    cout<<filein<<endl;
     in= new ifstream(filein.c_str(),ios::binary);//in.open(filein.c_str(),ios::binary);
     fillBuffer();
 }
@@ -44,14 +46,19 @@ bool BitInStream::getBit(){
 }
 
 
-char BitInStream::getByte(){
-    char x=0;
+int BitInStream::getByte(){
+    int x=0;
+    if(buffer!=-1){
     for(int i=1;i<=8;i++){
         bool c=getBit();
+        //cout<<i<<"_"<<c<<"|";
         x= x<<1;
         if(c) x|=0x01;
     }
     return x;
+    }else{
+        return -1;
+    }   
 }
 
 

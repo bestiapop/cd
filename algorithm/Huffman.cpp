@@ -8,7 +8,7 @@
 #include "Huffman.hpp"
 
 
-#define K 256
+#define K 512
 
 using namespace std;
 
@@ -34,28 +34,18 @@ void Huffman::encode(){
 
     long int length=0;
     vector<string*> * codes;
-    char c;
+    int c;
     int* prob;
     
     //cout<<"Calculating empiric..."<<endl;
-    //prob= empiricProbability(length);
 
     //write descriptor for decoder
     decoderDescriptor(prob,codes,length,true);
-    
-    //
-    //  Write Body
-    //
     bis->open(_filein); //second read
     //cout<<"Compressing Body..."<<endl;
-    
-    //setting code to bos
-    //if(BitOutHuffman *bosd = dynamic_cast<BitOutHuffman*>(bos))           
-    //        bosd->setCodes(codes);         
-        
-    
+
     while((c=bis->getByte())>-1)
-        bos->writeChar(c);
+        bos->writeChar((unsigned char)c);
     
     
     //cout<<endl<<"Finish encoding..."<<endl;

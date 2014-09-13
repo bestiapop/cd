@@ -8,7 +8,7 @@
 #ifndef ALGORITHM_HPP
 #define	ALGORITHM_HPP
 
-#define K 256
+#define K 512
 
 #include <vector>
 #include <string>
@@ -47,8 +47,8 @@ protected:
     
     void encodeCharHuffman(vector<string*> &codes, char c);
     
-    BitInStream *bis;
-    BitOutStream *bos;
+    BitInStream * bis;
+    BitOutStream * bos;
     string _filein;
     string _fileout;
 private:

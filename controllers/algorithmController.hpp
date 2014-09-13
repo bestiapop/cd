@@ -12,15 +12,17 @@
 #include "../algorithm/Huffman.hpp"
 #include "../algorithm/lz77.hpp"
 #include "../algorithm/lzhuffman.hpp"
+#include "../algorithm/huffmanlzfile.hpp"
 
 class algorithmController {
 public:
     algorithmController();
     algorithmController(const algorithmController& orig);
     
-    void setHuffman(bool compress,string infile, string output);
-    void setHuffmanlz77(bool compress,string infile, string output,int ws);
-    void setlz77(bool compress,string infile, string output,int ws);
+    void setHuffman(string infile, string output);
+    void setHuffmanlz77(string infile, string output,int ws);
+    void setlz77(string infile, string output,int ws);
+    void setHuffmanLzFile(string infile, string output,int ws);
     
     void encode_decode(bool encode);
     void encode();

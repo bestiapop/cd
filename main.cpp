@@ -17,12 +17,8 @@
 #include "algorithm/lz77.hpp"
 #include "algorithm/Algorithm.hpp"
 #include "controllers/algorithmController.hpp"
+
 using namespace std;
-
-/*
- * 
- */
-
 
 int main(int argc, char** argv) {
     //GetOpt getopt (argc, argv, "dcs:");
@@ -32,6 +28,7 @@ int main(int argc, char** argv) {
     bool lz=false;
     bool h=false;
     bool compress=false;
+    bool hfromfile=false;
     //bool xtract=false;
     //string h_file;
     //string i_file; 
@@ -49,12 +46,8 @@ int main(int argc, char** argv) {
                 output_file= string(optarg);
                 break;
                 
-            case 'i':
-                if(optarg==NULL){
-                    cout<<"option -i requires argument\n";
-                    return -1;
-                }
-                in_file=string(optarg);
+            case 'i': //cases huffman with example file
+                hfromfile = true;
                 break;
                 
             case 'c':
@@ -105,28 +98,33 @@ int main(int argc, char** argv) {
     algorithmController controller;
     
     if(h && !lz){
-        //cout<<"HUFFMAN"<<endl;
-        controller.setHuffman(compress,in_file, output_file);
+        cout<<"HUFFMAN"<<endl;
+        controller.setHuffman(in_file, output_file);
         controller.encode_decode(compress);
     }
     else if(h && lz){
         cout<<"HUFFMAN+LZ"<<endl;
         //WSSS!
-        controller.setHuffmanlz77(compress,in_file,output_file,10);
-        controller.encode_decode(compress);
-        //
+        //cout<<in_file<<endl;
+        //cout<<output_file<<endl;
+        if(!hfromfile){
+            controller.setHuffmanlz77(in_file,output_file,10);
+            controller.encode_decode(compress);
+        }else{
+            controller.setHuffmanLzFile(in_file,output_file,10);
+            controller.encode_decode(compress);
+        }
+        
     }
     else if(!h && lz){
         cout<<"LZ"<<endl;
-        ////////WSSSS!
-        //cout<<in_file<<endl;
-
-        controller.setlz77(compress,in_file,output_file,10);
+        controller.setlz77(in_file,output_file,150);
         controller.encode_decode(compress);
     }
     else{ 
         cout<<"LZdef"<<endl; //default
     }
+     
 
     /*testing
     algorithmController controller;
@@ -138,15 +136,34 @@ int main(int argc, char** argv) {
     controller.setlz77(false,"z.sal","z.comp",10);
     controller.encode_decode(false);
     */
-    
-    /*
-    algorithmController controller;
-    controller.setHuffmanlz77(true,"z","z.sal",10);
+    /*algorithmController controller;
+    controller.setlz77("a.txt","a.bin",70);
     controller.encode_decode(true);
     
     algorithmController controller2;
-    controller2.setHuffmanlz77(false,"z.sal","z.comp",10);
+    controller2.setlz77("a.bin","a2.txt",70);
+    controller2.encode_decode(false);    */
+    /*
+    algorithmController controller;
+    controller.setHuffmanlz77("a.png","a.bin",70);
+    controller.encode_decode(true);
+    
+    algorithmController controller2;
+    controller2.setHuffmanlz77("a.bin","a2.png",70);
     controller2.encode_decode(false);
-    return 0;*/
-           
+    */
+    return 0;
+    
+    /*
+    algorithmController controller;
+
+    cout<<"LPM"<<endl;
+    controller.setHuffman("music.mp3", "ab.bin");
+    //controller.setHuffman("a.txt","a.sal");
+    controller.encode_decode(true);
+      
+    algorithmController controller2;
+    controller2.setHuffman("ab.bin","music2.mp3");
+    controller2.encode_decode(false);
+    */
 }

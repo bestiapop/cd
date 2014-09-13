@@ -16,32 +16,23 @@ algorithmController::algorithmController(const algorithmController& orig) {
 }
 
 algorithmController::~algorithmController() {
+    delete _algorithm;
 }
 
-void algorithmController::setHuffman(bool compress, string input, string output) {
-    //string output;
-    //if(compress) output=input+".bin";
-    //else output=input+".sal";
-    
-    _algorithm= new Huffman(input,output);
-         
+void algorithmController::setHuffman(string input, string output) {
+    _algorithm= new Huffman(input,output); 
 }
 
-void algorithmController::setHuffmanlz77(bool compress, string input,string output, int ws) {
-    //string output;
-    //if(compress) output=input+".bin";
-    //else output=input+".sal";
-    
-    _algorithm= new lzhuffman(ws,input,output);
-    
+void algorithmController::setHuffmanlz77(string input,string output, int ws) {
+    _algorithm= new lzhuffman(ws,input,output);   
 }
 
-void algorithmController::setlz77(bool compress, string input, string output, int ws) {
-    //string output;
-    //if(compress) output=input+".bin";
-    //else output=input+".sal";
-    
+void algorithmController::setlz77(string input, string output, int ws) {
     _algorithm= new lz77(ws,input,output);
+}
+
+void algorithmController::setHuffmanLzFile(string infile, string output, int ws) {
+    _algorithm = new huffmanlzfile(ws, infile, output);
 }
 
 

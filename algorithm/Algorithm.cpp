@@ -29,8 +29,9 @@ Algorithm::Algorithm(string filein, string fileout){//:bis(filein), bos(fileout)
 int* Algorithm::empiricProbability(long int &length){
     int *prob= new int[K];
     length=0;
-    char c;
+    int c;
     while((c=bis->getByte())>-1){
+        //cout<<c<<endl;
         prob[c]++;
         length++;       
     }
@@ -40,19 +41,24 @@ int* Algorithm::empiricProbability(long int &length){
 }
 
 bool comparator(Nodo* a, Nodo* b){
-    return a->getFrec() > b->getFrec();
+    return a->getFrec() < b->getFrec();
 }
 
 Nodo* Algorithm::generateTree(int* frec){
     vector<Nodo*> vec= vector<Nodo*>();
     for(int i=0; i<K; i++){
         if(frec[i]>0){
-            Nodo* n= new Nodo((char)i,frec[i]);
+            Nodo* n= new Nodo((unsigned char)i,frec[i]);
+            //cout<<"ok"<<endl;
             vec.push_back(n);
         }
     }
+    cout<<vec.size()<<endl;
     sort(vec.begin(),vec.end(),comparator);
-
+    //cout<<vec[0]->getFrec()<<endl;
+    for(int i=0; i<vec.size(); i++) cout<<i<<")"<<vec.at(i)->getFrec()<<endl;
+    cout<<vec.size()<<endl;
+    
     while(vec.size()>1){
         int frec=vec[0]->getFrec()+vec[1]->getFrec();
         Nodo *n = new Nodo('*',frec,vec[0],vec[1]);
@@ -60,6 +66,8 @@ Nodo* Algorithm::generateTree(int* frec){
         vec.erase(vec.begin());
         vec.push_back(n);
         sort(vec.begin(),vec.end(),comparator);
+        //for(int i=0; i<vec.size(); i++) cout<<vec[i]->getFrec();
+        //cout<<endl;
     }
     return vec[0]; 
 }
@@ -79,8 +87,8 @@ void Algorithm::generateCode(Nodo *&n, vector<string*>&codes, string ac){
 
 //wrapper
 vector<string*>* Algorithm::generateCode(Nodo*& n) {
-    vector<string*> *codes= new vector<string*>(256);
-    for(int i=0; i<256; i++)
+    vector<string*> *codes= new vector<string*>(K);
+    for(int i=0; i<K; i++)
         (*codes)[i]=NULL;
      
     generateCode(n,*codes,"");        
@@ -91,7 +99,7 @@ vector<string*>* Algorithm::generateCode(Nodo*& n) {
 void Algorithm::writeTree(Nodo* &root){
     if(root->isLeaf()){ //hoja
         bos->writeBit(true);
-        char c=root->getChar();
+        unsigned char c=root->getChar();
         bos->writeByte(c);
     }else{
         bos->writeBit(false);
@@ -105,7 +113,7 @@ Nodo* Algorithm::readTree(){
     bool bit;
     bit=bis->getBit();
     if(bit){
-        char c;
+        unsigned char c;
         c=bis->getByte();
         return new Nodo(c,-1);
     }else{
@@ -120,27 +128,29 @@ void Algorithm::decoderDescriptor(int*& prob, vector<string*> * &codes, long int
     //  LONG INT    : how many symbols contains the original file;  
     //  DECODER     : describes the tree parser, this is used for decode de file; 32 bits
     //  ENCODED FILE    
-    
+    cout<<"empi"<<endl;
     prob= empiricProbability(length);
-    
-    //cout<<"Generating tree..."<<endl;
+    if(prob==NULL) cout<<"NULL"<<endl;
+    //for(int i=0; i<K; i++) if(prob[i] != NULL) cout<<prob[i]<<endl;
+    cout<<"Generating tree..."<<endl;
     Nodo * root= generateTree(prob);  
-    
+    //root->printNodo("_");
     //setting the tree to read
     BitInHuffman *bisd = dynamic_cast<BitInHuffman*>(bis);
     bisd->setTree(root);     
     
-    //cout<<"Generating code..."<<endl;
+    cout<<"Generating code..."<<endl;
     codes=generateCode(root);
     
+    for(int i=0; i<K;i++) if((*codes)[i]!=NULL) cout<<*(*codes)[i]<<endl;
     //setting code for bos
     if(BitOutHuffman *bosd = dynamic_cast<BitOutHuffman*>(bos))           
             bosd->setCodes(codes);         
     
       
-    //cout<<"Writing LONG INT"<<endl;
+    cout<<"Writing LONG INT"<<endl;
     if (print_l) bos->writeInt(length);  
-    //cout<<"Writing tree..."<<endl;
+    cout<<"Writing tree..."<<endl;
     writeTree(root);
 }
 

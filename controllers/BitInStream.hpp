@@ -22,7 +22,7 @@ public:
     //functions
     void fillBuffer();
     bool getBit();
-    char getByte();
+    int getByte();
     //for huffman code
     virtual char getChar();
     long int getInt();
@@ -35,7 +35,7 @@ public:
     
 private:
     istream *in;
-    char buffer;
+    int buffer;
     int N;
 
 };

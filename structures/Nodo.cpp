@@ -44,7 +44,7 @@ Nodo* &Nodo::getLeft(){
 int Nodo::getFrec(){
     return frec;
 }
-char Nodo::getChar(){
+unsigned char Nodo::getChar(){
     return c;
 }
 

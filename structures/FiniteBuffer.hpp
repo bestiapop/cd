@@ -9,7 +9,7 @@
 #define	FINITEBUFFER_HPP
 #include <vector>
 #include "../controllers/BitInStream.hpp"
-#define ABUF 7
+#define ABUF 256
 
 using namespace std;
 
@@ -18,9 +18,9 @@ public:
     FiniteBuffer();
     FiniteBuffer(int size, BitInStream * &bis);
     FiniteBuffer(const FiniteBuffer& orig);
-    char &operator [](const int index);
-    char at_w(const int index);
-    char at_b(const int index);
+    int &operator [](const int index);
+    int at_w(const int index);
+    int at_b(const int index);
     int length_w();
     int length_b();
     
@@ -29,11 +29,9 @@ public:
     
     virtual ~FiniteBuffer();
 private:
-    vector<char> *buffer;
-    vector<char> *bufferwin;
-    int size_w;
-    //int current_size;
-    
+    vector<int> *buffer;
+    vector<int> *bufferwin;
+    int size_w;    
 };
 
 #endif	/* FINITEBUFFER_HPP */

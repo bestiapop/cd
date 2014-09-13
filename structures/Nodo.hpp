@@ -21,7 +21,7 @@ public:
     Nodo* &getRight();
     Nodo* &getLeft();
     int getFrec();
-    char getChar();
+    unsigned char getChar();
     void printNodo(string tab);
     bool isLeaf();
 
@@ -29,7 +29,7 @@ public:
     
     virtual ~Nodo();
 private:
-    char c;
+    unsigned char c;
     int frec;
     Nodo *left;
     Nodo *right;

@@ -19,11 +19,11 @@ FiniteBuffer::~FiniteBuffer() {
 }
 
 FiniteBuffer::FiniteBuffer(int size, BitInStream * &bis){
-    buffer = new vector<char>();
-    bufferwin= new vector<char>();
+    buffer = new vector<int>();
+    bufferwin= new vector<int>();
     this->size_w=size;
     int aux=ABUF;
-    char c;
+    int c;
     
     while(aux>0 && (c=bis->getByte())>-1){
         buffer->push_back(c);
@@ -33,18 +33,18 @@ FiniteBuffer::FiniteBuffer(int size, BitInStream * &bis){
 }
 
 
-char& FiniteBuffer::operator [](const int index) {
+int& FiniteBuffer::operator [](const int index) {
     return (*buffer)[index];
 }
 
 
 
 
-char FiniteBuffer::at_w(const int index) {
+int FiniteBuffer::at_w(const int index) {
     return (*bufferwin)[index];
 }
 
-char FiniteBuffer::at_b(const int index) {
+int FiniteBuffer::at_b(const int index) {
     return (*buffer)[index];
 }
 
@@ -52,7 +52,7 @@ char FiniteBuffer::at_b(const int index) {
 void FiniteBuffer::shiftbuffer(int l, BitInStream* &bis) {
     int max=buffer->size();
     for(int i=0;i<max && i<l;i++){
-        char c=buffer->at(0);
+        int c=buffer->at(0);
         buffer->erase(buffer->begin());
         if(bufferwin->size()==size_w){
             bufferwin->erase(bufferwin->begin());
@@ -64,7 +64,7 @@ void FiniteBuffer::shiftbuffer(int l, BitInStream* &bis) {
         
     }
     //lleno el lookaside buffer
-    char c;
+    int c;
     max= min(l,ABUF);
     while( max>0 && (c=bis->getByte())>-1){
         buffer->push_back(c);
