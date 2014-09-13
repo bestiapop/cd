@@ -13,8 +13,9 @@
 #include "../algorithm/lz77.hpp"
 #include "../algorithm/lzhuffman.hpp"
 #include "../algorithm/huffmanlzfile.hpp"
+#include "../interfaces/IAlgorithms.hpp"
 
-class algorithmController {
+class algorithmController: public IAlgorithms {
 public:
     algorithmController();
     algorithmController(const algorithmController& orig);
@@ -23,6 +24,10 @@ public:
     void setHuffmanlz77(string infile, string output,int ws);
     void setlz77(string infile, string output,int ws);
     void setHuffmanLzFile(string infile, string output,int ws);
+    
+    virtual void executeHuffman(string in_file, string out_file, bool compress);
+    virtual void executeLZ77(string in_file, string out_file, int ws, bool compress);
+    virtual void executeHuffmanLZ77(string in_file, string out_file, int ws, bool file, bool compress); 
     
     void encode_decode(bool encode);
     void encode();

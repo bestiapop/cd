@@ -25,7 +25,7 @@ int* huffmanlzfile::empiricProbabilityFile(long int& length) {
     BitInStream *read = new BitInStream();
     int *prob= new int[K];
     length=0;
-    char c;
+    int c;
     while((c=read->getByte())>-1){
         prob[c]++;
         length++;       
@@ -40,12 +40,10 @@ int* huffmanlzfile::empiricProbabilityFile(long int& length) {
 void huffmanlzfile::encode() {
     long int length=0;
     vector<string*> *codes;
-
     int* prob = empiricProbabilityFile(length);
     Nodo * root= generateTree(prob);  
     BitInHuffman *bisd = dynamic_cast<BitInHuffman*>(bis);
     bisd->setTree(root);     
-    
     codes=generateCode(root);
     
     if(BitOutHuffman *bosd = dynamic_cast<BitOutHuffman*>(bos))           
@@ -54,7 +52,6 @@ void huffmanlzfile::encode() {
     length = bis->fileLength()+1;
     bos->writeInt(length);  
     writeTree(root);
-            
     bis->open(_filein);   
     lz77algorithm();
     

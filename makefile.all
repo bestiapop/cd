@@ -2,7 +2,7 @@ CC= g++ -c
 
 all: code
 
-code: controllers.o structures.o algorithm.o main.o
+code: controllers.o structures.o algorithm.o interfaces.o main.o
 	g++ *.o -o code
 	
 main.o: 
@@ -19,6 +19,8 @@ structures.o:
 algorithm.o:
 	$(CC) ./algorithm/*.cpp
 #Huffman.cpp ./algorithm/lz77.cpp
-	
+interfaces.o:
+	$(CC) ./interfaces/*.cpp
+
 clean:
 	rm *.o code

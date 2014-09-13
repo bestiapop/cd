@@ -17,28 +17,25 @@
 #include "algorithm/lz77.hpp"
 #include "algorithm/Algorithm.hpp"
 #include "controllers/algorithmController.hpp"
+#include "interfaces/Factory.hpp"
 
 using namespace std;
 
 int main(int argc, char** argv) {
-    //GetOpt getopt (argc, argv, "dcs:");
- 
-    //Lista args= Lista(3);
+    
     int c;
+    int ws_int;
+
     bool lz=false;
     bool h=false;
     bool compress=false;
     bool hfromfile=false;
-    //bool xtract=false;
-    //string h_file;
-    //string i_file; 
+ 
     string output_file;
     string in_file;
     string ws;
     
-    //z == lz algorithm
-    //h == huffman
-    //
+
     
     while((c=getopt(argc,argv,"cxhzidwo:"))!=-1){
         switch(c){
@@ -70,13 +67,25 @@ int main(int argc, char** argv) {
                 if(optarg==NULL){
                     cout<<"option -w requires window size value\n";
                     return -1;
+                }else{
+                    ws=string(optarg);
+                    try{
+                        stringstream ss(ws);        
+                        ss>>ws_int;
+                        if(ws_int<=0){
+                            cout<<"Window size must be greater than 0..."<<endl;
+                            return 0;
+                        }
+                    }catch(exception E){
+                        cout<<"Invalid argument for Window Size..."<<endl;
+                        return 0;        
+                    }
                 }
-                ws=string(optarg);
                 break;
                 
             case '?':
-                cout<<optopt<<endl;
-                cout<<optarg<<endl;
+                //cout<<optopt<<endl;
+                //cout<<optarg<<endl;
                 if(optopt=='z') cout<<"option -z requires argument \n";
                 else
                     if(optopt=='i') cout<<"option -i requires input file \n";
@@ -87,42 +96,25 @@ int main(int argc, char** argv) {
     }
     
     in_file= string(argv[optind]);
-    
-    
-    //cout<<"INFILE:"<<in_file<<endl;
-    //cout<<"OUTFILE:"<<output_file<<endl;
-//    for (int index = optind; index < argc; index++)
-//         cout<<"Non-option argument"<< argv[index]<<endl;
 
-    
-    algorithmController controller;
+    Factory *fabrica = new Factory();
+    IAlgorithms *algorithms = fabrica->getAlgorithms();
     
     if(h && !lz){
         cout<<"HUFFMAN"<<endl;
-        controller.setHuffman(in_file, output_file);
-        controller.encode_decode(compress);
+        algorithms->executeHuffman(in_file,output_file,compress);
     }
     else if(h && lz){
         cout<<"HUFFMAN+LZ"<<endl;
-        //WSSS!
-        //cout<<in_file<<endl;
-        //cout<<output_file<<endl;
-        if(!hfromfile){
-            controller.setHuffmanlz77(in_file,output_file,10);
-            controller.encode_decode(compress);
-        }else{
-            controller.setHuffmanLzFile(in_file,output_file,10);
-            controller.encode_decode(compress);
-        }
-        
+        algorithms->executeHuffmanLZ77(in_file,output_file,ws_int, hfromfile, compress);
     }
     else if(!h && lz){
         cout<<"LZ"<<endl;
-        controller.setlz77(in_file,output_file,150);
-        controller.encode_decode(compress);
+        algorithms->executeLZ77(in_file, output_file, ws_int, compress);
     }
     else{ 
         cout<<"LZdef"<<endl; //default
+        algorithms->executeLZ77(in_file, output_file, ws_int, compress);    
     }
      
 

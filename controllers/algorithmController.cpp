@@ -52,3 +52,22 @@ void algorithmController::encode_decode(bool encode){
         _algorithm->decode();
 }
 
+void algorithmController::executeHuffman(string in_file, string out_file, bool compress) {    
+    setHuffman(in_file, out_file);
+    encode_decode(compress);
+}
+
+void algorithmController::executeHuffmanLZ77(string in_file, string out_file, int ws, bool file, bool compress) {
+    if(!file){   
+        setHuffmanlz77(in_file,out_file,ws);
+        encode_decode(compress);
+    }else{
+        setHuffmanLzFile(in_file,out_file,ws);
+        encode_decode(compress);
+    }
+}
+
+void algorithmController::executeLZ77(string in_file, string out_file, int ws, bool compress) {
+    setlz77(in_file,out_file,ws);
+    encode_decode(compress);   
+}

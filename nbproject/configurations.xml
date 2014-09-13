@@ -9,8 +9,10 @@
       <itemPath>controllers/BitInStream.hpp</itemPath>
       <itemPath>controllers/BitOutHuffman.hpp</itemPath>
       <itemPath>controllers/BitOutStream.hpp</itemPath>
+      <itemPath>interfaces/Factory.hpp</itemPath>
       <itemPath>structures/FiniteBuffer.hpp</itemPath>
       <itemPath>algorithm/Huffman.hpp</itemPath>
+      <itemPath>interfaces/IAlgorithms.hpp</itemPath>
       <itemPath>structures/Nodo.hpp</itemPath>
       <itemPath>controllers/algorithmController.hpp</itemPath>
       <itemPath>algorithm/huffmanlzfile.hpp</itemPath>
@@ -29,6 +31,7 @@
       <itemPath>controllers/BitInStream.cpp</itemPath>
       <itemPath>controllers/BitOutHuffman.cpp</itemPath>
       <itemPath>controllers/BitOutStream.cpp</itemPath>
+      <itemPath>interfaces/Factory.cpp</itemPath>
       <itemPath>structures/FiniteBuffer.cpp</itemPath>
       <itemPath>algorithm/Huffman.cpp</itemPath>
       <itemPath>structures/Nodo.cpp</itemPath>
@@ -106,6 +109,12 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="interfaces/Factory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="interfaces/Factory.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="interfaces/IAlgorithms.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="structures/FiniteBuffer.cpp" ex="false" tool="1" flavor2="0">
@@ -182,6 +191,12 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="interfaces/Factory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="interfaces/Factory.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="interfaces/IAlgorithms.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
