@@ -10,12 +10,14 @@
 
 #include "IAlgorithms.hpp"
 #include "../controllers/algorithmController.hpp"
-
+#include "ISettings.hpp"
+#include "../controllers/Utils.hpp"
 class Factory {
 public:
     Factory();
     Factory(const Factory& orig);
     IAlgorithms *getAlgorithms();
+    ISettings *getSettings();
     virtual ~Factory();
 private:
 

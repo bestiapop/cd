@@ -28,7 +28,7 @@ lz77::~lz77() {
 void lz77::lz77algorithm() {
       
     FiniteBuffer buffer(ws, bis);
-    
+    bos->writeInt(ws);
     while(buffer.length_b()>0){
     int offset=0;
     int length=0;
@@ -47,11 +47,20 @@ void lz77::lz77algorithm() {
         //otro while
         if(i_aux==buffer.length_w()){
             i_aux=0;
-            while(aux<buffer.length_b() && buffer.at_b(i_aux)==buffer.at_b(aux)){
+            bool ok=true;
+            if(aux==buffer.length_b()){//igual maximo
+                ok=buffer.push(bis);
+            }
+            //while(aux<buffer.length_b() && buffer.at_b(i_aux)==buffer.at_b(aux)){
+            while(buffer.at_b(i_aux)== buffer.at_b(aux)){
+
                 offseta=buffer.length_w()-i;
                 i_aux++;
                 aux++;
                 largo++;
+                if(aux == buffer.length_b()){
+                    ok=buffer.push(bis);
+                }
             }
         
         }
@@ -63,25 +72,23 @@ void lz77::lz77algorithm() {
     
     }
     
-    if(length>3){
+    if(length>1){
         //cout<<"("<<length<<","<<offset<<")"<<endl;
-        bos->writeBit(true);
-        bos->writeByte((unsigned char)length);
-        bos->writeByte((unsigned char)offset);
+        bos->writeLogInt(length);
+        bos->writeIntWS(ws,offset);
     }
     else{
         length=1;
-        //cout<<"["<<buffer.at_b(0)<<"]"<<endl;
-        bos->writeBit(false);
+        //cout<<"["<<(char)buffer.at_b(0)<<"]"<<endl;
+        bos->writeBit(true); //false
         bos->writeChar(buffer.at_b(0));
     }
     
+    if(Utils::instance()->getDebugMode())
+        cout<<"("<<length<<","<<bos->getSize()<<")"<<endl;
+
     buffer.shiftbuffer(length,bis);
     
-    //if(buffer.length_b()!=0)
-    //    bos->writeBit(false);    
-    //else
-    //    bos->writeBit(true);    
     }
 
     bis->close();
@@ -90,16 +97,16 @@ void lz77::lz77algorithm() {
 
 
 
-void lz77::lz77decode(long int lfile) {
+void lz77::lz77decode() {
+    ws= bis->getInt();
     char * buffer = new char[ws];
     long int it=0;
     long int it_aux;
-
-    while(it<lfile){
-        bool bit=bis->getBit();
-        if(bit){ //1
-            int length= (int)bis->getByte();
-            int offset= (int)bis->getByte();
+    //while(it<lfile){
+    while(bis->valid()){
+        long int length=bis->getLogInt();
+        if(length>1){
+        long int offset= bis->getInt(ws);
             it_aux= it-offset;
             it+=length;
             while(length>0 ){
@@ -108,11 +115,11 @@ void lz77::lz77decode(long int lfile) {
                 it_aux++;
                 length--;
             }            
-        }else{//single char
+        }else if(length == 1){//single char
             buffer[it%ws]=bis->getChar();
             bos->writeByte(buffer[it%ws]);
             it++;           
-        }   
+        }  
     }
     
     bos->close();
@@ -122,13 +129,13 @@ void lz77::lz77decode(long int lfile) {
 
 
 void lz77::encode() {
-    long int lfile= bis->fileLength()+1;
-    bos->writeInt(lfile);
-    bis->open(_filein);
+    //long int lfile= bis->fileLength()+1;
+    //bos->writeInt(lfile);
+    //bis->open(_filein);
     lz77algorithm();
 }
 
 void lz77::decode() {
-    long int lfile= bis->getInt();
-    lz77decode(lfile);
+    
+    lz77decode();
 }

@@ -30,15 +30,18 @@ int main(int argc, char** argv) {
     bool h=false;
     bool compress=false;
     bool hfromfile=false;
- 
+    bool debug_mode=false;
+    
     string output_file;
     string in_file;
     string ws;
     
-
-    
-    while((c=getopt(argc,argv,"cxhzidwo:"))!=-1){
+    while((c=getopt(argc,argv,"cxhzidw:o:"))!=-1){
         switch(c){
+            case 'd' :
+                debug_mode = true;
+                break;
+                
             case 'o':
                 output_file= string(optarg);
                 break;
@@ -69,6 +72,7 @@ int main(int argc, char** argv) {
                     return -1;
                 }else{
                     ws=string(optarg);
+                    cout<<"ws: "<<ws<<endl;
                     try{
                         stringstream ss(ws);        
                         ss>>ws_int;
@@ -99,6 +103,11 @@ int main(int argc, char** argv) {
 
     Factory *fabrica = new Factory();
     IAlgorithms *algorithms = fabrica->getAlgorithms();
+    ISettings *settings = fabrica->getSettings();
+    
+    //Setting debug mode with singleton
+    settings->setDebugMode(debug_mode);
+
     
     if(h && !lz){
         cout<<"HUFFMAN"<<endl;
@@ -116,36 +125,10 @@ int main(int argc, char** argv) {
         cout<<"LZdef"<<endl; //default
         algorithms->executeLZ77(in_file, output_file, ws_int, compress);    
     }
-     
-
-    /*testing
-    algorithmController controller;
-    controller.setlz77(true,"z","z.sal",10);
-    cout<<"ok"<<endl;
-    controller.encode_decode(true);
-    
-    
-    controller.setlz77(false,"z.sal","z.comp",10);
-    controller.encode_decode(false);
-    */
-    /*algorithmController controller;
-    controller.setlz77("a.txt","a.bin",70);
-    controller.encode_decode(true);
-    
-    algorithmController controller2;
-    controller2.setlz77("a.bin","a2.txt",70);
-    controller2.encode_decode(false);    */
-    /*
-    algorithmController controller;
-    controller.setHuffmanlz77("a.png","a.bin",70);
-    controller.encode_decode(true);
-    
-    algorithmController controller2;
-    controller2.setHuffmanlz77("a.bin","a2.png",70);
-    controller2.encode_decode(false);
-    */
+ 
+   
     return 0;
-    
+}
     /*
     algorithmController controller;
 
@@ -158,4 +141,69 @@ int main(int argc, char** argv) {
     controller2.setHuffman("ab.bin","music2.mp3");
     controller2.encode_decode(false);
     */
-}
+
+
+
+ 
+//
+    /*testing
+    //algorithmController controller;
+    //controller.setHuffmanlz77("a.png","t.sal",1024);
+    //cout<<"ok"<<endl;
+    //controller.encode_decode(true);
+    
+    //algorithmController controller2, controller3;
+    //codificar 10
+    int l= ceil(log2(10+1));
+    //cout<<l<<endl;
+    int lp = ceil(log2(l+1));
+    //cout<<lp<<endl;
+    BitOutStream bos2("log");
+    bos2.writeLogInt(5);
+    bos2.close();
+    
+    
+    BitInStream bis("log");
+    cout<<"dec "<<bis.getLogInt()<<endl;
+    bis.close();
+    
+    
+    //controller2.setHuffman("a.png", "t.h");   
+    //controller2.encode_decode(true);
+    //cout<<"termino"<<endl;
+    //controller3.setHuffman("t.h","texto.h");
+    //controller3.encode_decode(false);
+
+
+    algorithmController controller;
+    controller.setlz77("pg2000.txt","mancha.sal",256);
+    controller.encode_decode(true);
+    cout<<"end encode"<<endl;
+    
+    algorithmController controller2;
+    controller2.setlz77("mancha.sal","mancha.txt",0);
+    controller2.encode_decode(false);
+    cout<<"end encode"<<endl;
+    //algorithmController controller2;
+    //controller2.setHuffman("pg2000.txt","mancha.hu");
+    //controller2.encode_decode(true); 
+     * 
+     * 
+    */
+    
+    /*
+    algorithmController controller;
+    controller.setHuffmanlz77("a.png","a.bin",70);
+    controller.encode_decode(true);
+    
+    algorithmController controller2;
+    controller2.setHuffmanlz77("a.bin","a2.png",70);
+    controller2.encode_decode(false);
+    */
+
+
+    //BitOutStream *bos = new BitOutStream("testout");
+    //bos->writeLogInt(5);
+    //bos->close();
+    //BitInStream *bis = new BitInStream("testout");
+    //cout<<bis->getLogInt(3);

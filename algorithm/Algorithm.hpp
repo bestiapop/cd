@@ -8,7 +8,7 @@
 #ifndef ALGORITHM_HPP
 #define	ALGORITHM_HPP
 
-#define K 512
+#define K 256
 
 #include <vector>
 #include <string>

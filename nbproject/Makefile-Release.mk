@@ -44,6 +44,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/controllers/BitInStream.o \
 	${OBJECTDIR}/controllers/BitOutHuffman.o \
 	${OBJECTDIR}/controllers/BitOutStream.o \
+	${OBJECTDIR}/controllers/Utils.o \
 	${OBJECTDIR}/controllers/algorithmController.o \
 	${OBJECTDIR}/interfaces/Factory.o \
 	${OBJECTDIR}/main.o \
@@ -119,6 +120,11 @@ ${OBJECTDIR}/controllers/BitOutStream.o: controllers/BitOutStream.cpp
 	${MKDIR} -p ${OBJECTDIR}/controllers
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/controllers/BitOutStream.o controllers/BitOutStream.cpp
+
+${OBJECTDIR}/controllers/Utils.o: controllers/Utils.cpp 
+	${MKDIR} -p ${OBJECTDIR}/controllers
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/controllers/Utils.o controllers/Utils.cpp
 
 ${OBJECTDIR}/controllers/algorithmController.o: controllers/algorithmController.cpp 
 	${MKDIR} -p ${OBJECTDIR}/controllers

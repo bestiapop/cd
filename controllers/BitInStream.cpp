@@ -6,7 +6,7 @@
  */
 
 #include "BitInStream.hpp"
-
+#include <math.h>
 BitInStream::BitInStream() {
     in= &cin;
     fillBuffer();
@@ -102,4 +102,49 @@ long int BitInStream::fileLength() {
     in->seekg(begin);
     return end-begin;
     
+}
+
+long int BitInStream::getLogInt() {
+    bool bit;
+    int n=0;
+    long int ret=0;
+    long int l=0;
+    while(!getBit() && valid())
+        n++;
+    //caso borde
+    if(!valid()){
+        return 0;
+    }
+    
+    if(n>0){ //zero then no read
+    int lx = n+1;
+    
+    for(int i=0; i<lx;i++){
+        bit=getBit();
+        l= l<<1;
+        if(bit) l|=0x01;
+    }
+    
+    for(int i=0; i<l; i++){
+        bit=getBit();
+        ret= ret<<1;
+        if(bit) ret|=0x01;
+    }
+        return ret;
+    }else{
+        return 1;
+    }
+}
+
+long int BitInStream::getInt(int ws) {
+    //reads int sizeof log2 ws
+    int l=ceil(log2(ws));
+    bool bit;
+    long int ret=0;
+    for(int i=0; i<l; i++){
+        bit=getBit();
+        ret= ret<<1;
+        if(bit) ret|=0x01;
+    }    
+    return ret;
 }

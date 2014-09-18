@@ -8,7 +8,7 @@
 #include "Huffman.hpp"
 
 
-#define K 512
+#define K 256
 
 using namespace std;
 
@@ -37,26 +37,18 @@ void Huffman::encode(){
     int c;
     int* prob;
     
-    //cout<<"Calculating empiric..."<<endl;
-
     //write descriptor for decoder
     decoderDescriptor(prob,codes,length,true);
     bis->open(_filein); //second read
-    //cout<<"Compressing Body..."<<endl;
-
     while((c=bis->getByte())>-1)
         bos->writeChar((unsigned char)c);
     
-    
-    //cout<<endl<<"Finish encoding..."<<endl;
     bis->close();
     bos->close();
-
-    //delete memory
+    
+    //delete allocated memory
     delete [] prob;
-    //codes.erase(codes.begin(),codes.end());
     delete codes;
-    //delete tree  
 }
 
 void Huffman::decode(){

@@ -19,6 +19,7 @@
 #include "../structures/Nodo.hpp"
 #include "../structures/FiniteBuffer.hpp"
 #include "../algorithm/Algorithm.hpp"
+#include "../controllers/Utils.hpp"
 
 class lz77: public Algorithm{
 public:
@@ -27,7 +28,7 @@ public:
     lz77(int ws,string,string);
     
     void lz77algorithm();
-    void lz77decode(long int lfile);
+    void lz77decode();
     virtual void encode();
     virtual void decode();
 

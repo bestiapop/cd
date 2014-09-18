@@ -23,7 +23,7 @@ lzhuffman::lzhuffman(int ws, string filein, string fileout):lz77(ws,filein,fileo
 }
 
 void lzhuffman::decode() {
-    long int lfile=bis->getInt();
+    //long int lfile=bis->getInt();
     //readtree & generate code
     Nodo * root=readTree();
     BitInHuffman *bisd = dynamic_cast<BitInHuffman*>(bis);
@@ -33,7 +33,7 @@ void lzhuffman::decode() {
     BitOutHuffman *bosd = dynamic_cast<BitOutHuffman*>(bos);
     bosd->setCodes(codes);
     //decode
-    lz77decode(lfile);
+    lz77decode();
 }
 
 void lzhuffman::encode() {
@@ -41,7 +41,7 @@ void lzhuffman::encode() {
     vector<string*> *codes;
 
     int* prob;
-    decoderDescriptor(prob,codes,length,true);
+    decoderDescriptor(prob,codes,length,false);
         
     bis->open(_filein); //second read
     //cout<<"Compressing Body..."<<endl;

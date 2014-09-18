@@ -26,6 +26,8 @@ public:
     //for huffman code
     virtual char getChar();
     long int getInt();
+    long int getLogInt();
+    long int getInt(int ws);
     void close();
     void open(string filein);
     bool valid();

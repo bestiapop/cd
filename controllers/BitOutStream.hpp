@@ -13,6 +13,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <math.h>
 using namespace std;
 
 class BitOutStream {
@@ -31,6 +32,9 @@ public:
     //int getN();
     unsigned char getBuffer();
     void writeInt(long int x);
+    void writeLogInt(long int x);
+    void writeIntWS(long int ws, long int x);
+    unsigned long int getSize();
     
     void open(string fileout);
     void close();
@@ -40,6 +44,7 @@ protected:
     ofstream out;
     int N;
     unsigned char buffer;
+    unsigned long int size;
 };
 
 #endif	/* BITOUTSTREAM_HPP */

@@ -49,8 +49,8 @@ void huffmanlzfile::encode() {
     if(BitOutHuffman *bosd = dynamic_cast<BitOutHuffman*>(bos))           
         bosd->setCodes(codes);         
     
-    length = bis->fileLength()+1;
-    bos->writeInt(length);  
+    //length = bis->fileLength()+1;
+    //bos->writeInt(length);  
     writeTree(root);
     bis->open(_filein);   
     lz77algorithm();
@@ -60,12 +60,12 @@ void huffmanlzfile::encode() {
 }
 
 void huffmanlzfile::decode() {
-    long int lfile=bis->getInt();
+    //long int lfile=bis->getInt();
     Nodo * root=readTree();
     BitInHuffman *bisd = dynamic_cast<BitInHuffman*>(bis);
     bisd->setTree(root);
     vector<string*> * codes= generateCode(root);
     BitOutHuffman *bosd = dynamic_cast<BitOutHuffman*>(bos);
     bosd->setCodes(codes);
-    lz77decode(lfile);    
+    lz77decode();    
 }

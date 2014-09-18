@@ -13,7 +13,9 @@
       <itemPath>structures/FiniteBuffer.hpp</itemPath>
       <itemPath>algorithm/Huffman.hpp</itemPath>
       <itemPath>interfaces/IAlgorithms.hpp</itemPath>
+      <itemPath>interfaces/ISettings.hpp</itemPath>
       <itemPath>structures/Nodo.hpp</itemPath>
+      <itemPath>controllers/Utils.hpp</itemPath>
       <itemPath>controllers/algorithmController.hpp</itemPath>
       <itemPath>algorithm/huffmanlzfile.hpp</itemPath>
       <itemPath>algorithm/lz77.hpp</itemPath>
@@ -35,6 +37,7 @@
       <itemPath>structures/FiniteBuffer.cpp</itemPath>
       <itemPath>algorithm/Huffman.cpp</itemPath>
       <itemPath>structures/Nodo.cpp</itemPath>
+      <itemPath>controllers/Utils.cpp</itemPath>
       <itemPath>controllers/algorithmController.cpp</itemPath>
       <itemPath>algorithm/huffmanlzfile.cpp</itemPath>
       <itemPath>algorithm/lz77.cpp</itemPath>
@@ -99,6 +102,10 @@
       </item>
       <item path="controllers/BitOutStream.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="controllers/Utils.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="controllers/Utils.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="controllers/algorithmController.cpp"
             ex="false"
             tool="1"
@@ -114,6 +121,8 @@
       <item path="interfaces/Factory.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="interfaces/IAlgorithms.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="interfaces/ISettings.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -182,6 +191,10 @@
       </item>
       <item path="controllers/BitOutStream.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="controllers/Utils.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="controllers/Utils.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="controllers/algorithmController.cpp"
             ex="false"
             tool="1"
@@ -197,6 +210,8 @@
       <item path="interfaces/Factory.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="interfaces/IAlgorithms.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="interfaces/ISettings.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>

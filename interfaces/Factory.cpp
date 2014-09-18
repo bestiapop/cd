@@ -6,6 +6,7 @@
  */
 
 #include "Factory.hpp"
+#include "ISettings.hpp"
 
 Factory::Factory() {
 }
@@ -20,3 +21,6 @@ IAlgorithms *Factory::getAlgorithms() {
     return new algorithmController();
 }
 
+ISettings *Factory::getSettings(){
+    return Utils::instance();
+}

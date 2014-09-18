@@ -80,5 +80,13 @@ int FiniteBuffer::length_w() {
     return bufferwin->size();
 }
 
+bool FiniteBuffer::push(BitInStream*& bis) {
+    int c = bis->getByte();
+    if(c>-1){
+        buffer->push_back(c);
+        return true;
+    }
+    return false;
+}
 
 
