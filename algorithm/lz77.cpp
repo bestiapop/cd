@@ -51,7 +51,7 @@ void lz77::lz77algorithm() {
             if(aux==buffer.length_b()){//igual maximo
                 ok=buffer.push(bis);
             }
-            //while(aux<buffer.length_b() && buffer.at_b(i_aux)==buffer.at_b(aux)){
+
             while(buffer.at_b(i_aux)== buffer.at_b(aux)){
 
                 offseta=buffer.length_w()-i;
@@ -102,7 +102,6 @@ void lz77::lz77decode() {
     char * buffer = new char[ws];
     long int it=0;
     long int it_aux;
-    //while(it<lfile){
     while(bis->valid()){
         long int length=bis->getLogInt();
         if(length>1){
@@ -129,9 +128,6 @@ void lz77::lz77decode() {
 
 
 void lz77::encode() {
-    //long int lfile= bis->fileLength()+1;
-    //bos->writeInt(lfile);
-    //bis->open(_filein);
     lz77algorithm();
 }
 

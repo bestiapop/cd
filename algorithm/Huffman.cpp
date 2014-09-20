@@ -39,6 +39,14 @@ void Huffman::encode(){
     
     //write descriptor for decoder
     decoderDescriptor(prob,codes,length,true);
+    
+    //print descriptor size
+    long unsigned int file_size;
+    if(Utils::instance()->getDebugMode()){
+        file_size= bos->getSize();
+        cout<<"D "<<file_size<<endl;
+    }
+    
     bis->open(_filein); //second read
     while((c=bis->getByte())>-1)
         bos->writeChar((unsigned char)c);
@@ -46,6 +54,11 @@ void Huffman::encode(){
     bis->close();
     bos->close();
     
+    if(Utils::instance()->getDebugMode()){
+    long unsigned int final_size = bos->getSize();
+    cout<<"C "<<final_size - file_size<<endl;
+    cout<<"F "<<final_size<<endl;
+    } 
     //delete allocated memory
     delete [] prob;
     delete codes;
@@ -62,7 +75,6 @@ void Huffman::decode(){
     
     bool bit;
     for(int i=0; i<length; i++){
-       // bos->writeByte(rec->getChar());
         bos->writeByte(bis->getChar());
     }
     

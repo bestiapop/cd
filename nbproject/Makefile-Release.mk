@@ -70,11 +70,11 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/huffmancode
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cd
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/huffmancode: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cd: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/huffmancode ${OBJECTFILES} ${LDLIBSOPTIONS}
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cd ${OBJECTFILES} ${LDLIBSOPTIONS}
 
 ${OBJECTDIR}/algorithm/Algorithm.o: algorithm/Algorithm.cpp 
 	${MKDIR} -p ${OBJECTDIR}/algorithm
@@ -157,7 +157,7 @@ ${OBJECTDIR}/structures/Nodo.o: structures/Nodo.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/huffmancode
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cd
 
 # Subprojects
 .clean-subprojects:

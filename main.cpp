@@ -88,8 +88,6 @@ int main(int argc, char** argv) {
                 break;
                 
             case '?':
-                //cout<<optopt<<endl;
-                //cout<<optarg<<endl;
                 if(optopt=='z') cout<<"option -z requires argument \n";
                 else
                     if(optopt=='i') cout<<"option -i requires input file \n";
@@ -110,19 +108,19 @@ int main(int argc, char** argv) {
 
     
     if(h && !lz){
-        cout<<"HUFFMAN"<<endl;
+        //cout<<"HUFFMAN"<<endl;
         algorithms->executeHuffman(in_file,output_file,compress);
     }
     else if(h && lz){
-        cout<<"HUFFMAN+LZ"<<endl;
+        //cout<<"HUFFMAN+LZ"<<endl;
         algorithms->executeHuffmanLZ77(in_file,output_file,ws_int, hfromfile, compress);
     }
     else if(!h && lz){
-        cout<<"LZ"<<endl;
+        //cout<<"LZ"<<endl;
         algorithms->executeLZ77(in_file, output_file, ws_int, compress);
     }
     else{ 
-        cout<<"LZdef"<<endl; //default
+        //cout<<"LZdef"<<endl; //default
         algorithms->executeLZ77(in_file, output_file, ws_int, compress);    
     }
  
@@ -141,69 +139,3 @@ int main(int argc, char** argv) {
     controller2.setHuffman("ab.bin","music2.mp3");
     controller2.encode_decode(false);
     */
-
-
-
- 
-//
-    /*testing
-    //algorithmController controller;
-    //controller.setHuffmanlz77("a.png","t.sal",1024);
-    //cout<<"ok"<<endl;
-    //controller.encode_decode(true);
-    
-    //algorithmController controller2, controller3;
-    //codificar 10
-    int l= ceil(log2(10+1));
-    //cout<<l<<endl;
-    int lp = ceil(log2(l+1));
-    //cout<<lp<<endl;
-    BitOutStream bos2("log");
-    bos2.writeLogInt(5);
-    bos2.close();
-    
-    
-    BitInStream bis("log");
-    cout<<"dec "<<bis.getLogInt()<<endl;
-    bis.close();
-    
-    
-    //controller2.setHuffman("a.png", "t.h");   
-    //controller2.encode_decode(true);
-    //cout<<"termino"<<endl;
-    //controller3.setHuffman("t.h","texto.h");
-    //controller3.encode_decode(false);
-
-
-    algorithmController controller;
-    controller.setlz77("pg2000.txt","mancha.sal",256);
-    controller.encode_decode(true);
-    cout<<"end encode"<<endl;
-    
-    algorithmController controller2;
-    controller2.setlz77("mancha.sal","mancha.txt",0);
-    controller2.encode_decode(false);
-    cout<<"end encode"<<endl;
-    //algorithmController controller2;
-    //controller2.setHuffman("pg2000.txt","mancha.hu");
-    //controller2.encode_decode(true); 
-     * 
-     * 
-    */
-    
-    /*
-    algorithmController controller;
-    controller.setHuffmanlz77("a.png","a.bin",70);
-    controller.encode_decode(true);
-    
-    algorithmController controller2;
-    controller2.setHuffmanlz77("a.bin","a2.png",70);
-    controller2.encode_decode(false);
-    */
-
-
-    //BitOutStream *bos = new BitOutStream("testout");
-    //bos->writeLogInt(5);
-    //bos->close();
-    //BitInStream *bis = new BitInStream("testout");
-    //cout<<bis->getLogInt(3);

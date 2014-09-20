@@ -44,21 +44,19 @@ bool comparator(Nodo* a, Nodo* b){
     return a->getFrec() < b->getFrec();
 }
 
-Nodo* Algorithm::generateTree(int* frec){
+Nodo* Algorithm::generateTree(int* frec, bool zeros){
     vector<Nodo*> vec= vector<Nodo*>();
+    int F=0;
+    if(zeros) F=-1; 
     for(int i=0; i<K; i++){
-        if(frec[i]>0){
+        if(frec[i]>F){
             Nodo* n= new Nodo((unsigned char)i,frec[i]);
-            //cout<<"ok"<<endl;
             vec.push_back(n);
         }
     }
-    cout<<vec.size()<<endl;
-    sort(vec.begin(),vec.end(),comparator);
-    //cout<<vec[0]->getFrec()<<endl;
-    for(int i=0; i<vec.size(); i++) cout<<i<<")"<<vec.at(i)->getFrec()<<endl;
-    cout<<vec.size()<<endl;
     
+    sort(vec.begin(),vec.end(),comparator);
+
     while(vec.size()>1){
         int frec=vec[0]->getFrec()+vec[1]->getFrec();
         Nodo *n = new Nodo('*',frec,vec[0],vec[1]);
@@ -66,8 +64,6 @@ Nodo* Algorithm::generateTree(int* frec){
         vec.erase(vec.begin());
         vec.push_back(n);
         sort(vec.begin(),vec.end(),comparator);
-        //for(int i=0; i<vec.size(); i++) cout<<vec[i]->getFrec();
-        //cout<<endl;
     }
     return vec[0]; 
 }
@@ -128,42 +124,19 @@ void Algorithm::decoderDescriptor(int*& prob, vector<string*> * &codes, long int
     //  LONG INT    : how many symbols contains the original file;  
     //  DECODER     : describes the tree parser, this is used for decode de file; 32 bits
     //  ENCODED FILE    
-    cout<<"empi"<<endl;
     prob= empiricProbability(length);
-    if(prob==NULL) cout<<"NULL"<<endl;
-    //for(int i=0; i<K; i++) if(prob[i] != NULL) cout<<prob[i]<<endl;
-    cout<<"Generating tree..."<<endl;
-    Nodo * root= generateTree(prob);  
-    //root->printNodo("_");
+    Nodo * root= generateTree(prob,false);  
     //setting the tree to read
     BitInHuffman *bisd = dynamic_cast<BitInHuffman*>(bis);
     bisd->setTree(root);     
     
-    cout<<"Generating code..."<<endl;
     codes=generateCode(root);
     
-    for(int i=0; i<K;i++) if((*codes)[i]!=NULL) cout<<*(*codes)[i]<<endl;
     //setting code for bos
     if(BitOutHuffman *bosd = dynamic_cast<BitOutHuffman*>(bos))           
             bosd->setCodes(codes);         
     
-      
-    cout<<"Writing LONG INT"<<endl;
     if (print_l) bos->writeInt(length);  
-    cout<<"Writing tree..."<<endl;
     writeTree(root);
-}
-
-void Algorithm::encodeCharHuffman(vector<string*>& codes, char c) {
-        string * toParse= codes[c];
-        cout<<c;
-        for(int i=0;i<toParse->length();i++){
-            if(toParse->at(i)=='0'){
-                bos->writeBit(false);
-                }
-            else{
-                bos->writeBit(true);
-            }
-        }
 }
 

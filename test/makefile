@@ -1,4 +1,4 @@
 all:
 	./test.sh
 clean:
-	rm ./bin/*
+	rm ./bin/* ./compare/* ./xtract/*

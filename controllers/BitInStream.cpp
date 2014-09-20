@@ -13,15 +13,13 @@ BitInStream::BitInStream() {
 }
 
 void BitInStream::fillBuffer(){
-    //in>>buffer;
     buffer=in->get();
-   //cout<<buffer<<endl;
     N=8;//0
 }
 
 BitInStream::BitInStream(string filein) {
     cout<<filein<<endl;
-    in= new ifstream(filein.c_str(),ios::binary);//in.open(filein.c_str(),ios::binary);
+    in= new ifstream(filein.c_str(),ios::binary);
     fillBuffer();
 }
 
@@ -36,11 +34,10 @@ BitInStream::~BitInStream() {
 
 
 bool BitInStream::getBit(){
-    N--;//++
-    bool b= buffer & (0x0100>>(8-N));//(0x0100>>N);//(1<<(8-N));
+    N--;
+    bool b= buffer & (0x0100>>(8-N));
     if(N==0){
         fillBuffer();
-        //N=8;
     }
     return b;
 }
@@ -51,7 +48,6 @@ int BitInStream::getByte(){
     if(buffer!=-1){
     for(int i=1;i<=8;i++){
         bool c=getBit();
-        //cout<<i<<"_"<<c<<"|";
         x= x<<1;
         if(c) x|=0x01;
     }
@@ -70,7 +66,7 @@ void BitInStream::close(){
 
 void BitInStream::open(string filein){
     
-    in= new ifstream(filein.c_str(), ios::binary);//.open(filein.c_str(),ios::binary);
+    in= new ifstream(filein.c_str(), ios::binary);
     fillBuffer();
 }
 

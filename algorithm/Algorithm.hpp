@@ -36,7 +36,7 @@ public:
 
 protected:
     int* empiricProbability(long int &length);
-    Nodo* generateTree(int* frec);
+    Nodo* generateTree(int* frec, bool zeros);
     void generateCode(Nodo *&n,vector<string*> &codes, string ac);
     vector<string*> *generateCode(Nodo * &n);
     void writeTree(Nodo* &root);
@@ -44,15 +44,11 @@ protected:
         
     //generateTree + generateCode + writetree ==> return de code
     void decoderDescriptor(int* &prob, vector<string*>* &code, long int length, bool print_l);
-    
-    void encodeCharHuffman(vector<string*> &codes, char c);
-    
+        
     BitInStream * bis;
     BitOutStream * bos;
     string _filein;
     string _fileout;
-private:
-
 };
 
 #endif	/* ALGORITHM_HPP */

@@ -11,6 +11,7 @@
 #include "Algorithm.hpp"
 #include "../controllers/BitOutHuffman.hpp"
 #include "../controllers/BitInHuffman.hpp"
+#include "../controllers/Utils.hpp"
 
 class Huffman: public Algorithm{
 public:

@@ -9,19 +9,19 @@ CND_DISTDIR=dist
 # Debug configuration
 CND_PLATFORM_Debug=GNU-Linux-x86
 CND_ARTIFACT_DIR_Debug=dist/Debug/GNU-Linux-x86
-CND_ARTIFACT_NAME_Debug=huffmancode
-CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux-x86/huffmancode
+CND_ARTIFACT_NAME_Debug=cd
+CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux-x86/cd
 CND_PACKAGE_DIR_Debug=dist/Debug/GNU-Linux-x86/package
-CND_PACKAGE_NAME_Debug=huffmancode.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux-x86/package/huffmancode.tar
+CND_PACKAGE_NAME_Debug=cd.tar
+CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux-x86/package/cd.tar
 # Release configuration
 CND_PLATFORM_Release=GNU-Linux-x86
 CND_ARTIFACT_DIR_Release=dist/Release/GNU-Linux-x86
-CND_ARTIFACT_NAME_Release=huffmancode
-CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux-x86/huffmancode
+CND_ARTIFACT_NAME_Release=cd
+CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux-x86/cd
 CND_PACKAGE_DIR_Release=dist/Release/GNU-Linux-x86/package
-CND_PACKAGE_NAME_Release=huffmancode.tar
-CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux-x86/package/huffmancode.tar
+CND_PACKAGE_NAME_Release=cd.tar
+CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux-x86/package/cd.tar
 #
 # include compiler specific variables
 #
