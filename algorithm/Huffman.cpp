@@ -44,7 +44,7 @@ void Huffman::encode(){
     long unsigned int file_size;
     if(Utils::instance()->getDebugMode()){
         file_size= bos->getSize();
-        cout<<"D "<<file_size<<endl;
+        cout<<file_size<<endl;
     }
     
     bis->open(_filein); //second read
@@ -56,9 +56,34 @@ void Huffman::encode(){
     
     if(Utils::instance()->getDebugMode()){
     long unsigned int final_size = bos->getSize();
-    cout<<"C "<<final_size - file_size<<endl;
-    cout<<"F "<<final_size<<endl;
+    cout<<final_size - file_size<<endl;
+    cout<<final_size<<endl;
     } 
+    
+    double total=0;
+    double entropia=0;
+    double entropiacaso=0;
+
+    for(int i=0; i<K; i++){
+        total+= prob[i];
+    }
+    for(int i=0; i<K; i++){
+        if(prob[i]>0){
+        double pa= prob[i]/total;
+        entropia+= pa * log2(1/pa);
+        //cout<<log2(1/pa)<<endl;
+        entropiacaso+= pa * (*(*codes)[i]).size();
+        }
+    }
+    if(Utils::instance()->getDebugMode()){
+        cout<<"Entropia teorica: "<<entropia<<endl;
+        cout<<"Tasa entropia: "<<entropia*length<<endl;
+        cout<<"Entropia obtenida: "<<entropiacaso<<endl;
+        //cout<<"Tasa entropia: "<<entropiacaso*length<<endl;
+
+    }
+
+    
     //delete allocated memory
     delete [] prob;
     delete codes;

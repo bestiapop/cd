@@ -3,10 +3,12 @@ CC= g++ -c
 all: code
 
 code: controllers.o structures.o algorithm.o interfaces.o main.o
+	#mkdir build
 	g++ *.o -o code
+	#mv *.o ./build
 	
 main.o: 
-	$(CC) ./main.cpp
+	$(CC) ./main.cpp 
  
 controllers.o: 
 	$(CC) ./controllers/*.cpp
@@ -17,10 +19,10 @@ structures.o:
 #FiniteBuffer.cpp ./structures/Nodo.cpp
 
 algorithm.o:
-	$(CC) ./algorithm/*.cpp
+	$(CC) ./algorithm/*.cpp 
 #Huffman.cpp ./algorithm/lz77.cpp
 interfaces.o:
 	$(CC) ./interfaces/*.cpp
 
 clean:
-	rm *.o code
+	rm ./build/*.o

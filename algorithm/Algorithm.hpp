@@ -43,7 +43,7 @@ protected:
     Nodo* readTree();
         
     //generateTree + generateCode + writetree ==> return de code
-    void decoderDescriptor(int* &prob, vector<string*>* &code, long int length, bool print_l);
+    void decoderDescriptor(int* &prob, vector<string*>* &code, long int &length, bool print_l);
         
     BitInStream * bis;
     BitOutStream * bos;

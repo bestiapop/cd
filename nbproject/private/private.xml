@@ -7,13 +7,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/leo/NetBeansProjects/HuffmanCode/interfaces/ISettings.hpp</file>
-            <file>file:/home/leo/NetBeansProjects/HuffmanCode/main.cpp</file>
-            <file>file:/home/leo/NetBeansProjects/HuffmanCode/controllers/BitOutStream.cpp</file>
-            <file>file:/home/leo/NetBeansProjects/HuffmanCode/algorithm/lz77.cpp</file>
-            <file>file:/home/leo/NetBeansProjects/HuffmanCode/controllers/BitOutStream.hpp</file>
-            <file>file:/home/leo/NetBeansProjects/HuffmanCode/controllers/Utils.cpp</file>
-            <file>file:/home/leo/NetBeansProjects/HuffmanCode/algorithm/lz77.hpp</file>
+            <file>file:/home/leo/Desktop/CDSP/code/cd/algorithm/lz77.cpp</file>
+            <file>file:/home/leo/Desktop/CDSP/code/cd/main.cpp</file>
+            <file>file:/home/leo/Desktop/CDSP/code/cd/algorithm/Huffman.cpp</file>
+            <file>file:/home/leo/Desktop/CDSP/code/cd/algorithm/lzhuffman.cpp</file>
         </group>
     </open-files>
 </project-private>

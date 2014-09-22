@@ -85,7 +85,7 @@ void lz77::lz77algorithm() {
     }
     
     if(Utils::instance()->getDebugMode())
-        cout<<"("<<length<<","<<bos->getSize()<<")"<<endl;
+        cout<<length<<","<<bos->getSize()<<endl;
 
     buffer.shiftbuffer(length,bis);
     

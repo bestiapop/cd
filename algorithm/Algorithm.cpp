@@ -119,7 +119,7 @@ Nodo* Algorithm::readTree(){
     }
 }
 
-void Algorithm::decoderDescriptor(int*& prob, vector<string*> * &codes, long int length, bool print_l) {
+void Algorithm::decoderDescriptor(int*& prob, vector<string*> * &codes, long int &length, bool print_l) {
     //descriptor para decoder
     //  LONG INT    : how many symbols contains the original file;  
     //  DECODER     : describes the tree parser, this is used for decode de file; 32 bits

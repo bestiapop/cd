@@ -62,13 +62,13 @@ done
 
 echo "Testing LZ77+HUFFMAN+File..."
 ext="hzf"
-CA="-hzcw 256"
+CA="-hzciw 256"
 XA="-hzx"
 for file in $( ls $INSTANCES); do
 	#file="t$i"
 	#fileo="$file$ext"
 	$H $CA ./src/$file -o ./bin/$file.$ext
-	$H $XA ./bin/$file.$ext -o ./xtract/$file
+	$H $XA ./bin/$file.$ext -o ./xtract/$file <./src/Quijote.txt
 	diff $INSTANCES/$file ./xtract/$file >./compare/$file.diff
 	if [[ -s ./bin/$file.diff ]] ; then
 	  echo "ERROR: $file"
