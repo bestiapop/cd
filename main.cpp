@@ -72,7 +72,7 @@ int main(int argc, char** argv) {
                     return -1;
                 }else{
                     ws=string(optarg);
-                    cout<<"ws: "<<ws<<endl;
+                    //cout<<"ws: "<<ws<<endl;
                     try{
                         stringstream ss(ws);        
                         ss>>ws_int;
@@ -127,15 +127,3 @@ int main(int argc, char** argv) {
    
     return 0;
 }
-    /*
-    algorithmController controller;
-
-    cout<<"LPM"<<endl;
-    controller.setHuffman("music.mp3", "ab.bin");
-    //controller.setHuffman("a.txt","a.sal");
-    controller.encode_decode(true);
-      
-    algorithmController controller2;
-    controller2.setHuffman("ab.bin","music2.mp3");
-    controller2.encode_decode(false);
-    */

@@ -1,6 +1,6 @@
 #!/bin/bash
 INSTANCES=./src
-PROG=./cd
+PROG=../code
 mkdir test6/data
 for file in $(ls $INSTANCES); do	
 	$PROG -hzdcw 256 ./src/$file -o ./test6/$file.bin > ./test6/data/$file
